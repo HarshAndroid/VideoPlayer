@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Video Player</string>
+    <string name="all_videos">All Videos</string>
+    <string name="all_folders">All Folders</string>
+    <string name="total_videos">Total Videos:</string>
+    <string name="total_folders">Total Folders:</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="feedback">Feedback</string>
+    <string name="themes">Themes</string>
+    <string name="sort_order">Sort Order</string>
+    <string name="about">About</string>
+    <string name="exit">Exit</string>
+    <string name="nav_text">Welcome to World of Entertainment!!</string>
+    <string name="video_name">Video Name</string>
+    <string name="folder_name">Folder Name</string>
+    <string name="duration">00:00</string>
+    <string name="image">Image</string>
+    <string name="loading">Loading..</string>
+    <string name="semi_colon">:</string>
+    <string name="lock">Lock Button</string>
+    <string name="back_btn">Back Button</string>
+    <string name="menu">Menu</string>
+
+    <string name="prev_btn">Previous Button</string>
+    <string name="next_btn">Next Button</string>
+    <string name="repeat_btn">Repeat Button</string>
+    <string name="fullscreen_btn">Fullscreen Button</string>
+    <string name="play_btn">Play Button</string>
+</resources>

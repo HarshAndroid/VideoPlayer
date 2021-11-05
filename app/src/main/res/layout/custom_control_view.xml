@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="bottom"
+    android:background="#42000000"
+    android:orientation="vertical">
+
+  <com.google.android.exoplayer2.ui.DefaultTimeBar
+      android:id="@id/exo_progress"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:scrubber_color="@color/white"
+      app:played_color="@color/white"
+      app:unplayed_color="#80FFFFFF"
+      app:buffered_color="#80FFFFFF"
+      app:scrubber_enabled_size="10dp"
+      app:scrubber_disabled_size="5dp"
+      android:layout_marginHorizontal="5dp" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView android:id="@id/exo_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="@string/duration"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="@string/semi_colon"
+        android:layout_marginVertical="10dp"/>
+
+    <TextView android:id="@id/exo_duration"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      android:textColor="@color/white"
+        android:text="@string/loading"
+        android:layout_margin="10dp"/>
+
+  </LinearLayout>
+
+</LinearLayout>
