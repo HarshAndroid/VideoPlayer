@@ -2,6 +2,7 @@
 <b>Simple and Feature Rich Video Player Application.</b><br>
 <b>Still in Development Phase.</b></br>
 Some ScreenShots:
+<img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/1.png" width=50% height=50%/>
   ![Player ScreenShot](https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/1.png)
   ![Player ScreenShot](https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/2.png)
   ![Player ScreenShot](https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/3.png)
