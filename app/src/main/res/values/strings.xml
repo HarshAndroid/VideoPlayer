@@ -21,10 +21,16 @@
     <string name="lock">Lock Button</string>
     <string name="back_btn">Back Button</string>
     <string name="menu">Menu</string>
-
     <string name="prev_btn">Previous Button</string>
     <string name="next_btn">Next Button</string>
     <string name="repeat_btn">Repeat Button</string>
     <string name="fullscreen_btn">Fullscreen Button</string>
     <string name="play_btn">Play Button</string>
+    //for menu
+    <string name="audio_track">Audio Track</string>
+    <string name="subtitles">Subtitles</string>
+    <string name="booster">Booster</string>
+    <string name="speed">Speed</string>
+    <string name="sleep_timer">Sleep Timer</string>
+    <string name="pip_mode">PIP Mode</string>
 </resources>

@@ -48,6 +48,7 @@
             android:textStyle="bold"/>
 
         <ImageButton
+            android:id="@+id/moreFeaturesBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/menu_icon"

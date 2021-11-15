@@ -14,6 +14,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+    //for dialog
+    <style name="alertDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     //custom theme
     <style name="coolPinkNav" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/white</item>
