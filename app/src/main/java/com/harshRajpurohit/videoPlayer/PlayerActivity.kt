@@ -22,6 +22,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.harshRajpurohit.videoPlayer.databinding.ActivityPlayerBinding
+import com.harshRajpurohit.videoPlayer.databinding.BoosterBinding
 import com.harshRajpurohit.videoPlayer.databinding.MoreFeaturesBinding
 import java.util.*
 import kotlin.collections.ArrayList
@@ -173,6 +174,17 @@ class PlayerActivity : AppCompatActivity() {
                     isSubtitle = true
                 }
                 dialog.dismiss()
+                playVideo()
+            }
+            bindingMF.audioBooster.setOnClickListener {
+                dialog.dismiss()
+                val customDialogB = LayoutInflater.from(this).inflate(R.layout.booster, binding.root, false)
+                val bindingB = BoosterBinding.bind(customDialogB)
+                val dialogB = MaterialAlertDialogBuilder(this).setView(customDialogB)
+                    .setOnCancelListener { playVideo() }
+                    .setBackground(ColorDrawable(0x803700B3.toInt()))
+                    .create()
+                dialogB.show()
                 playVideo()
             }
         }

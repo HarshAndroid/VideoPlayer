@@ -18,7 +18,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-         // Warning: this repository is going to shut down soon
+         // necessary for loading projects from github
+        maven { url 'https://www.jitpack.io' }
     }
 }
 

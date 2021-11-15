@@ -53,4 +53,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-core:2.15.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.15.1'
 
+    //for vertical progress bar
+    implementation 'com.github.lukelorusso:VerticalSeekBar:1.2.7'
+
 }
