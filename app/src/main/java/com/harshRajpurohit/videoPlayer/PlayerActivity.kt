@@ -1,6 +1,14 @@
 package com.harshRajpurohit.videoPlayer
 
+import android.annotation.SuppressLint
+import android.app.AppOpsManager
+import android.app.PictureInPictureParams
+import android.content.Context
+import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
+import android.media.audiofx.LoudnessEnhancer
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -24,8 +32,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.harshRajpurohit.videoPlayer.databinding.ActivityPlayerBinding
 import com.harshRajpurohit.videoPlayer.databinding.BoosterBinding
 import com.harshRajpurohit.videoPlayer.databinding.MoreFeaturesBinding
+import com.harshRajpurohit.videoPlayer.databinding.SpeedDialogBinding
+import java.text.DecimalFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.system.exitProcess
 
 class PlayerActivity : AppCompatActivity() {
 
@@ -34,13 +45,17 @@ class PlayerActivity : AppCompatActivity() {
     private var isSubtitle: Boolean = true
 
     companion object{
+        private var timer: Timer? = null
         private lateinit var player: SimpleExoPlayer
         lateinit var playerList: ArrayList<Video>
         var position: Int = -1
         private var repeat: Boolean = false
         private var isFullscreen: Boolean = false
         private var isLocked: Boolean = false
-        lateinit var trackSelector: DefaultTrackSelector
+        private lateinit var trackSelector: DefaultTrackSelector
+        private lateinit var loudnessEnhancer: LoudnessEnhancer
+        private var speed: Float = 1.0f
+        var pipStatus: Int = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +94,7 @@ class PlayerActivity : AppCompatActivity() {
         if(repeat) binding.repeatBtn.setImageResource(R.drawable.exo_controls_repeat_all)
         else binding.repeatBtn.setImageResource(R.drawable.exo_controls_repeat_off)
     }
+    @SuppressLint("SetTextI18n")
     private fun initializeBinding(){
         binding.backBtn.setOnClickListener {
             finish()
@@ -182,15 +198,110 @@ class PlayerActivity : AppCompatActivity() {
                 val bindingB = BoosterBinding.bind(customDialogB)
                 val dialogB = MaterialAlertDialogBuilder(this).setView(customDialogB)
                     .setOnCancelListener { playVideo() }
+                    .setPositiveButton("OK"){self, _ ->
+                        loudnessEnhancer.setTargetGain(bindingB.verticalBar.progress * 100)
+                        playVideo()
+                        self.dismiss()
+                    }
                     .setBackground(ColorDrawable(0x803700B3.toInt()))
                     .create()
                 dialogB.show()
+                bindingB.verticalBar.progress = loudnessEnhancer.targetGain.toInt()/100
+                bindingB.progressText.text = "Audio Boost\n\n${loudnessEnhancer.targetGain.toInt()/10} %"
+                bindingB.verticalBar.setOnProgressChangeListener {
+                    bindingB.progressText.text = "Audio Boost\n\n${it*10} %"
+                }
+            }
+            bindingMF.speedBtn.setOnClickListener {
+                dialog.dismiss()
                 playVideo()
+                val customDialogS = LayoutInflater.from(this).inflate(R.layout.speed_dialog, binding.root, false)
+                val bindingS = SpeedDialogBinding.bind(customDialogS)
+                val dialogS = MaterialAlertDialogBuilder(this).setView(customDialogS)
+                    .setCancelable(false)
+                    .setPositiveButton("OK"){self, _ ->
+                        self.dismiss()
+                    }
+                    .setBackground(ColorDrawable(0x803700B3.toInt()))
+                    .create()
+                dialogS.show()
+                bindingS.speedText.text = "${DecimalFormat("#.##").format(speed)} X"
+                bindingS.minusBtn.setOnClickListener {
+                    changeSpeed(isIncrement = false)
+                    bindingS.speedText.text = "${DecimalFormat("#.##").format(speed)} X"
+                }
+                bindingS.plusBtn.setOnClickListener {
+                    changeSpeed(isIncrement = true)
+                    bindingS.speedText.text = "${DecimalFormat("#.##").format(speed)} X"
+                }
+            }
+
+            bindingMF.sleepTimer.setOnClickListener {
+                dialog.dismiss()
+                if(timer != null) Toast.makeText(this, "Timer Already Running!!\nClose App to Reset Timer!!", Toast.LENGTH_SHORT).show()
+                else{
+                    var sleepTime = 15
+                    val customDialogS = LayoutInflater.from(this).inflate(R.layout.speed_dialog, binding.root, false)
+                    val bindingS = SpeedDialogBinding.bind(customDialogS)
+                    val dialogS = MaterialAlertDialogBuilder(this).setView(customDialogS)
+                        .setCancelable(false)
+                        .setPositiveButton("OK"){self, _ ->
+                            timer = Timer()
+                            val task = object: TimerTask(){
+                                override fun run() {
+                                    moveTaskToBack(true)
+                                    exitProcess(1)
+                                }
+                            }
+                            timer!!.schedule(task, sleepTime*60*1000.toLong())
+                            self.dismiss()
+                            playVideo()
+                        }
+                        .setBackground(ColorDrawable(0x803700B3.toInt()))
+                        .create()
+                    dialogS.show()
+                    bindingS.speedText.text = "$sleepTime Min"
+                    bindingS.minusBtn.setOnClickListener {
+                        if(sleepTime > 15) sleepTime -=15
+                        bindingS.speedText.text = "$sleepTime Min"
+                    }
+                    bindingS.plusBtn.setOnClickListener {
+                        if(sleepTime < 120) sleepTime += 15
+                        bindingS.speedText.text = "$sleepTime Min"
+                    }
+                }
+            }
+            bindingMF.pipModeBtn.setOnClickListener {
+                val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+                val status = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    appOps.checkOpNoThrow(AppOpsManager.OPSTR_PICTURE_IN_PICTURE, android.os.Process.myUid(), packageName)==
+                            AppOpsManager.MODE_ALLOWED
+                } else { false }
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    if (status) {
+                        this.enterPictureInPictureMode(PictureInPictureParams.Builder().build())
+                        dialog.dismiss()
+                        binding.playerView.hideController()
+                        playVideo()
+                        pipStatus = 0
+                    }
+                    else{
+                        val intent = Intent("android.settings.PICTURE_IN_PICTURE_SETTINGS",
+                            Uri.parse("package:$packageName"))
+                        startActivity(intent)
+                    }
+                }else{
+                    Toast.makeText(this, "Feature Not Supported!!", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                    playVideo()
+                }
             }
         }
     }
     private fun createPlayer(){
         try { player.release() }catch (e: Exception){}
+        speed = 1.0f
         trackSelector = DefaultTrackSelector(this)
         binding.videoTitle.text = playerList[position].title
         binding.videoTitle.isSelected = true
@@ -208,7 +319,8 @@ class PlayerActivity : AppCompatActivity() {
         })
         playInFullscreen(enable = isFullscreen)
         setVisibility()
-
+        loudnessEnhancer = LoudnessEnhancer(player.audioSessionId)
+        loudnessEnhancer.enabled = true
     }
     private fun playVideo(){
         binding.playPauseBtn.setImageResource(R.drawable.pause_icon)
@@ -263,6 +375,32 @@ class PlayerActivity : AppCompatActivity() {
         if(isLocked) binding.lockButton.visibility = View.VISIBLE
         else binding.lockButton.visibility = visibility
     }
+    private fun changeSpeed(isIncrement: Boolean){
+        if(isIncrement){
+            if(speed <= 2.9f){
+                speed += 0.10f //speed = speed + 0.10f
+            }
+        }
+        else{
+            if(speed > 0.20f){
+                speed -= 0.10f
+            }
+        }
+        player.setPlaybackSpeed(speed)
+    }
+
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration?) {
+        if(pipStatus != 0){
+            finish()
+            val intent = Intent(this, PlayerActivity::class.java)
+            when(pipStatus){
+                1 -> intent.putExtra("class","FolderActivity")
+                2 -> intent.putExtra("class","AllVideos")
+            }
+            startActivity(intent)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         player.release()

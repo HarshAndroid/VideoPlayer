@@ -12,19 +12,19 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/audioTrack"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:icon="@drawable/audio_track_icon"
-            android:text="@string/audio_track"
-            app:iconGravity="top"
+            android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:text="@string/audio_track"
             android:textAllCaps="false"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/white"
-            app:iconTint="@color/white"/>
+            app:icon="@drawable/audio_track_icon"
+            app:iconGravity="top"
+            app:iconTint="@color/white" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/subtitlesBtn"
@@ -66,6 +66,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/speedBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:icon="@drawable/speed_icon"
@@ -81,6 +82,7 @@
             app:iconTint="@color/white"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/sleepTimer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:icon="@drawable/timer_icon"
@@ -96,6 +98,7 @@
             app:iconTint="@color/white"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/pipModeBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:icon="@drawable/pip_icon"
