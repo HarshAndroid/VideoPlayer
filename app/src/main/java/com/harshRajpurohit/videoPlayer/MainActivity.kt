@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     companion object{
         lateinit var videoList: ArrayList<Video>
         lateinit var folderList: ArrayList<Folder>
+        lateinit var searchList: ArrayList<Video>
+        var search: Boolean = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    @SuppressLint("InlinedApi", "Recycle")
+    @SuppressLint("InlinedApi", "Recycle", "Range")
     private fun getAllVideos(): ArrayList<Video>{
         val tempList = ArrayList<Video>()
         val tempFolderList = ArrayList<String>()

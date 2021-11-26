@@ -23,9 +23,9 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.exoplayer2.C
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -43,10 +43,11 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlayerBinding
     private lateinit var runnable: Runnable
     private var isSubtitle: Boolean = true
+    private var moreTime: Int = 0
 
     companion object{
         private var timer: Timer? = null
-        private lateinit var player: SimpleExoPlayer
+        private lateinit var player: ExoPlayer
         lateinit var playerList: ArrayList<Video>
         var position: Int = -1
         private var repeat: Boolean = false
@@ -76,6 +77,22 @@ class PlayerActivity : AppCompatActivity() {
         }
         initializeLayout()
         initializeBinding()
+        binding.forwardFL.setOnClickListener(DoubleClickListener(callback = object :DoubleClickListener.Callback{
+            override fun doubleClicked() {
+                binding.playerView.showController()
+                binding.forwardBtn.visibility = View.VISIBLE
+                player.seekTo(player.currentPosition + 10000)
+                moreTime = 0
+            }
+        }))
+        binding.rewindFL.setOnClickListener(DoubleClickListener(callback = object :DoubleClickListener.Callback{
+            override fun doubleClicked() {
+                binding.playerView.showController()
+                binding.rewindBtn.visibility = View.VISIBLE
+                player.seekTo(player.currentPosition - 10000)
+                moreTime = 0
+            }
+        }))
     }
 
     private fun initializeLayout(){
@@ -88,6 +105,12 @@ class PlayerActivity : AppCompatActivity() {
             "FolderActivity" -> {
                 playerList = ArrayList()
                 playerList.addAll(FoldersActivity.currentFolderVideos)
+                createPlayer()
+
+            }
+            "SearchedVideos" ->{
+                playerList = ArrayList()
+                playerList.addAll(MainActivity.searchList)
                 createPlayer()
             }
         }
@@ -305,7 +328,7 @@ class PlayerActivity : AppCompatActivity() {
         trackSelector = DefaultTrackSelector(this)
         binding.videoTitle.text = playerList[position].title
         binding.videoTitle.isSelected = true
-        player = SimpleExoPlayer.Builder(this).setTrackSelector(trackSelector).build()
+        player = ExoPlayer.Builder(this).setTrackSelector(trackSelector).build()
         binding.playerView.player = player
         val mediaItem = MediaItem.fromUri(playerList[position].artUri)
         player.setMediaItem(mediaItem)
@@ -374,6 +397,14 @@ class PlayerActivity : AppCompatActivity() {
         binding.playPauseBtn.visibility = visibility
         if(isLocked) binding.lockButton.visibility = View.VISIBLE
         else binding.lockButton.visibility = visibility
+        if(moreTime == 2){
+            binding.rewindBtn.visibility = View.GONE
+            binding.forwardBtn.visibility = View.GONE
+        }else ++moreTime
+        //for lockscreen -- hiding double tap
+//        binding.rewindFL.visibility = visibility
+//        binding.forwardFL.visibility = visibility
+
     }
     private fun changeSpeed(isIncrement: Boolean){
         if(isIncrement){
@@ -395,7 +426,8 @@ class PlayerActivity : AppCompatActivity() {
             val intent = Intent(this, PlayerActivity::class.java)
             when(pipStatus){
                 1 -> intent.putExtra("class","FolderActivity")
-                2 -> intent.putExtra("class","AllVideos")
+                2 -> intent.putExtra("class","SearchedVideos")
+                3 -> intent.putExtra("class","AllVideos")
             }
             startActivity(intent)
         }

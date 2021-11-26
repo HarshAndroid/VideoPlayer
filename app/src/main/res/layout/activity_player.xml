@@ -71,20 +71,63 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
 
-    <ImageButton
-        android:id="@+id/playPauseBtn"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:contentDescription="@string/play_btn"
-        android:src="@drawable/play_icon"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:selectableItemBackground"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/rewindFL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/rewindBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/play_btn"
+                android:src="@drawable/rewind_icon"
+                app:tint="@color/white"
+                android:clickable="false"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/playPauseBtn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/play_btn"
+            android:src="@drawable/play_icon"
+            app:tint="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:selectableItemBackground"/>
+
+        <FrameLayout
+            android:id="@+id/forwardFL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/forwardBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/play_btn"
+                android:src="@drawable/forward_icon"
+                app:tint="@color/white"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottomController"

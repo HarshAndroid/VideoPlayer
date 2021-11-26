@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/booster_icon.xml" value="0.16203703703703703" />
+        <entry key="app/src/main/res/drawable/forward_icon.xml" value="0.1527777777777778" />
         <entry key="app/src/main/res/drawable/minus_icon.xml" value="0.10104166666666667" />
+        <entry key="app/src/main/res/drawable/rewind_icon.xml" value="0.1527777777777778" />
         <entry key="app/src/main/res/drawable/ripple_effect.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/layout/activity_player.xml" value="0.2" />
         <entry key="app/src/main/res/layout/booster.xml" value="0.18802083333333333" />
@@ -12,6 +14,7 @@
         <entry key="app/src/main/res/layout/more_features.xml" value="0.25" />
         <entry key="app/src/main/res/layout/speed_dialog.xml" value="0.25" />
         <entry key="app/src/main/res/layout/video_view.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/menu/search_view.xml" value="0.18802083333333333" />
       </map>
     </option>
   </component>
