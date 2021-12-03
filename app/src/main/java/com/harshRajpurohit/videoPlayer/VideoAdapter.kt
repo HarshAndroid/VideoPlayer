@@ -36,6 +36,9 @@ class VideoAdapter(private val context: Context, private var videoList: ArrayLis
             .into(holder.image)
         holder.root.setOnClickListener {
             when{
+                videoList[position].id == PlayerActivity.nowPlayingId -> {
+                    sendIntent(pos = position, ref = "NowPlaying")
+                }
                 isFolder -> {
                     PlayerActivity.pipStatus = 1
                     sendIntent(pos = position, ref = "FolderActivity")

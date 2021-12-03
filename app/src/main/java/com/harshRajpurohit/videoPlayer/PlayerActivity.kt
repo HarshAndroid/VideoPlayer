@@ -57,6 +57,7 @@ class PlayerActivity : AppCompatActivity() {
         private lateinit var loudnessEnhancer: LoudnessEnhancer
         private var speed: Float = 1.0f
         var pipStatus: Int = 0
+        var nowPlayingId: String = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,6 +113,15 @@ class PlayerActivity : AppCompatActivity() {
                 playerList = ArrayList()
                 playerList.addAll(MainActivity.searchList)
                 createPlayer()
+            }
+            "NowPlaying" ->{
+                speed = 1.0f
+                binding.videoTitle.text = playerList[position].title
+                binding.videoTitle.isSelected = true
+                binding.playerView.player = player
+                playVideo()
+                playInFullscreen(enable = isFullscreen)
+                setVisibility()
             }
         }
         if(repeat) binding.repeatBtn.setImageResource(R.drawable.exo_controls_repeat_all)
@@ -344,6 +354,7 @@ class PlayerActivity : AppCompatActivity() {
         setVisibility()
         loudnessEnhancer = LoudnessEnhancer(player.audioSessionId)
         loudnessEnhancer.enabled = true
+        nowPlayingId = playerList[position].id
     }
     private fun playVideo(){
         binding.playPauseBtn.setImageResource(R.drawable.pause_icon)
@@ -435,6 +446,6 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        player.release()
+        player.pause()
     }
 }

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/feedbackNav"
-        android:title="@string/feedback"
-        android:icon="@drawable/feedback_icon"/>
     <item android:id="@+id/themesNav"
         android:title="@string/themes"
         android:icon="@drawable/theme_icon"/>

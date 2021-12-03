@@ -15,7 +15,7 @@
         android:layout_height="50dp"
         android:src="@drawable/folder_icon"
         android:contentDescription="@string/image"
-        android:tint="@color/cool_pink" />
+        android:tint="?attr/themeColor" />
 
 
     <TextView

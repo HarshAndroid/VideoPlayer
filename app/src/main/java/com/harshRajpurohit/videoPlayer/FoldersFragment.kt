@@ -14,6 +14,7 @@ class FoldersFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        requireContext().theme.applyStyle(MainActivity.themesList[MainActivity.themeIndex], true)
         val view = inflater.inflate(R.layout.fragment_folders, container, false)
         val binding = FragmentFoldersBinding.bind(view)
         binding.FoldersRV.setHasFixedSize(true)

@@ -20,7 +20,7 @@ class FoldersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityFoldersBinding.inflate(layoutInflater)
-        setTheme(R.style.coolPinkNav)
+        setTheme(MainActivity.themesList[MainActivity.themeIndex])
         setContentView(binding.root)
         val position = intent.getIntExtra("position", 0)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -38,7 +38,7 @@ class FoldersActivity : AppCompatActivity() {
         finish()
         return true
     }
-    @SuppressLint("InlinedApi", "Recycle")
+    @SuppressLint("InlinedApi", "Recycle", "Range")
     private fun getAllVideos(folderId: String): ArrayList<Video>{
         val tempList = ArrayList<Video>()
         val selection = MediaStore.Video.Media.BUCKET_ID + " like? "

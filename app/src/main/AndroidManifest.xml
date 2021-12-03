@@ -16,11 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoPlayer"
         tools:ignore="AllowBackup">
-        <activity android:name=".PlayerActivity"
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity
+            android:name=".PlayerActivity"
+            android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
+            android:launchMode="singleTask"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
-            android:launchMode="singleTask"
-            android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             tools:targetApi="n" />
         <activity
             android:name=".FoldersActivity"
@@ -28,9 +34,9 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="true">
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

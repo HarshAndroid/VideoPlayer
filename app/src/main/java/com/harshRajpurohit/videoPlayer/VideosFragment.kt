@@ -1,6 +1,7 @@
 package com.harshRajpurohit.videoPlayer
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
@@ -12,6 +13,7 @@ import com.harshRajpurohit.videoPlayer.databinding.FragmentVideosBinding
 class VideosFragment : Fragment() {
 
     private lateinit var adapter: VideoAdapter
+    private lateinit var binding: FragmentVideosBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,14 +22,20 @@ class VideosFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        requireContext().theme.applyStyle(MainActivity.themesList[MainActivity.themeIndex], true)
         val view = inflater.inflate(R.layout.fragment_videos, container, false)
-        val binding = FragmentVideosBinding.bind(view)
+        binding = FragmentVideosBinding.bind(view)
         binding.VideoRV.setHasFixedSize(true)
         binding.VideoRV.setItemViewCacheSize(10)
         binding.VideoRV.layoutManager = LinearLayoutManager(requireContext())
         adapter = VideoAdapter(requireContext(), MainActivity.videoList)
         binding.VideoRV.adapter = adapter
         binding.totalVideos.text = "Total Videos: ${MainActivity.videoList.size}"
+        binding.nowPlayingBtn.setOnClickListener{
+            val intent = Intent(requireContext(), PlayerActivity::class.java)
+            intent.putExtra("class", "NowPlaying")
+            startActivity(intent)
+        }
         return view
     }
 
@@ -51,5 +59,10 @@ class VideosFragment : Fragment() {
             }
         })
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(PlayerActivity.position != -1) binding.nowPlayingBtn.visibility = View.VISIBLE
     }
 }
