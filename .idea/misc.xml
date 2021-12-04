@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/blue_gradient.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/drawable/black_gradient.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/drawable/blue_gradient.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/drawable/booster_icon.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/drawable/forward_icon.xml" value="0.1527777777777778" />
+        <entry key="app/src/main/res/drawable/gradient_pink.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/drawable/green_gradient.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/drawable/minus_icon.xml" value="0.10104166666666667" />
+        <entry key="app/src/main/res/drawable/pink_gradient.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/drawable/play_icon.xml" value="0.1527777777777778" />
+        <entry key="app/src/main/res/drawable/purple_gradient.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/drawable/red_gradient.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/drawable/rewind_icon.xml" value="0.1527777777777778" />
         <entry key="app/src/main/res/drawable/ripple_effect.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/drawable/scroll_bar_icon.xml" value="0.14166666666666666" />
@@ -20,6 +28,7 @@
         <entry key="app/src/main/res/layout/fragment_folders.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_videos.xml" value="0.21" />
         <entry key="app/src/main/res/layout/more_features.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/nav_header.xml" value="0.1" />
         <entry key="app/src/main/res/layout/speed_dialog.xml" value="0.25" />
         <entry key="app/src/main/res/layout/theme_view.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/layout/video_view.xml" value="0.11574074074074074" />
