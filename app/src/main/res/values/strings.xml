@@ -34,4 +34,9 @@
     <string name="sleep_timer">Sleep Timer</string>
     <string name="pip_mode">PIP Mode</string>
     <string name="search">Search</string>
+    //for video more features
+    <string name="rename">Rename </string>
+    <string name="delete">Delete</string>
+    <string name="info">Info</string>
+    <string name="share">Share</string>
 </resources>

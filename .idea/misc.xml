@@ -29,8 +29,10 @@
         <entry key="app/src/main/res/layout/fragment_videos.xml" value="0.21" />
         <entry key="app/src/main/res/layout/more_features.xml" value="0.25" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/rename_field.xml" value="0.33" />
         <entry key="app/src/main/res/layout/speed_dialog.xml" value="0.25" />
         <entry key="app/src/main/res/layout/theme_view.xml" value="0.18802083333333333" />
+        <entry key="app/src/main/res/layout/video_more_features.xml" value="0.33" />
         <entry key="app/src/main/res/layout/video_view.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/menu/nav_menu.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/menu/search_view.xml" value="0.18802083333333333" />
