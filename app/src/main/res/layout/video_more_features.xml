@@ -20,6 +20,7 @@
             app:iconTint="?attr/themeColor"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/deleteBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:icon="@drawable/delete_icon"
@@ -33,6 +34,7 @@
             app:iconTint="?attr/themeColor"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/shareBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:icon="@drawable/share_icon"
@@ -46,6 +48,7 @@
             app:iconTint="?attr/themeColor"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/infoBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:icon="@drawable/about_icon"

@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/layout/activity_player.xml" value="0.2" />
         <entry key="app/src/main/res/layout/booster.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/layout/custom_control_view.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/layout/details_view.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/layout/folders_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_folders.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_videos.xml" value="0.21" />

@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val sortList = arrayOf(MediaStore.Video.Media.DATE_ADDED + " DESC", MediaStore.Video.Media.DATE_ADDED,
         MediaStore.Video.Media.TITLE, MediaStore.Video.Media.TITLE + " DESC", MediaStore.Video.Media.SIZE,
         MediaStore.Video.Media.SIZE + " DESC")
+    private var runnable: Runnable? = null
 
     companion object{
         lateinit var videoList: ArrayList<Video>
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         val themesList = arrayOf(R.style.coolPinkNav, R.style.coolBlueNav, R.style.coolPurpleNav, R.style.coolGreenNav,
         R.style.coolRedNav, R.style.coolBlackNav)
         var dataChanged: Boolean = false
+        var adapterChanged: Boolean = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,9 +65,18 @@ class MainActivity : AppCompatActivity() {
             folderList = ArrayList()
             videoList = getAllVideos()
             setFragment(VideosFragment())
+
+            runnable = Runnable {
+                if(dataChanged){
+                    videoList = getAllVideos()
+                    dataChanged = false
+                    adapterChanged = true
+                }
+                Handler(Looper.getMainLooper()).postDelayed(runnable!!, 200)
+            }
+            Handler(Looper.getMainLooper()).postDelayed(runnable!!, 0)
         }
         binding.bottomNav.setOnItemSelectedListener {
-            if(dataChanged) videoList = getAllVideos()
             when(it.itemId){
                 R.id.videoView -> setFragment(VideosFragment())
                 R.id.foldersView -> setFragment(FoldersFragment())
@@ -184,7 +197,8 @@ class MainActivity : AppCompatActivity() {
                     val folderIdC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.BUCKET_ID))
                     val sizeC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.SIZE))
                     val pathC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))
-                    val durationC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DURATION)).toLong()
+                    //just add null checking in end, this 0L is alternative value if below function returns a null value
+                    val durationC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DURATION))?.toLong()?:0L
 
                     try {
                         val file = File(pathC)
@@ -214,5 +228,10 @@ class MainActivity : AppCompatActivity() {
         //for restarting app
         finish()
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        runnable = null
     }
 }
