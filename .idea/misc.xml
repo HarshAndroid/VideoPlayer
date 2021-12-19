@@ -25,7 +25,7 @@
         <entry key="app/src/main/res/layout/booster.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/layout/custom_control_view.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/layout/details_view.xml" value="0.18802083333333333" />
-        <entry key="app/src/main/res/layout/folders_view.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/folders_view.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_folders.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_videos.xml" value="0.21" />
         <entry key="app/src/main/res/layout/more_features.xml" value="0.25" />
@@ -34,7 +34,7 @@
         <entry key="app/src/main/res/layout/speed_dialog.xml" value="0.25" />
         <entry key="app/src/main/res/layout/theme_view.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/layout/video_more_features.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/video_view.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/layout/video_view.xml" value="0.33" />
         <entry key="app/src/main/res/menu/nav_menu.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/menu/search_view.xml" value="0.18802083333333333" />
       </map>
