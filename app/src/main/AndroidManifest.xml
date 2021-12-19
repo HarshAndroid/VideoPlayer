@@ -27,7 +27,16 @@
             android:launchMode="singleTask"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
-            tools:targetApi="n" />
+            tools:targetApi="n"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="video/*" android:scheme="content"/>
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".FoldersActivity"
             android:screenOrientation="portrait"

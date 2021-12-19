@@ -241,6 +241,5 @@ class VideoAdapter(private val context: Context, private var videoList: ArrayLis
                     ContextCompat.startActivity(context, intent, null)
                 }
             }
-
     }
 }
