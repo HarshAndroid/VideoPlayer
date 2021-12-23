@@ -12,8 +12,6 @@ import android.media.audiofx.LoudnessEnhancer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -47,7 +45,6 @@ import kotlin.system.exitProcess
 class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListener {
 
     private lateinit var binding: ActivityPlayerBinding
-    private lateinit var runnable: Runnable
     private var isSubtitle: Boolean = true
     private var moreTime: Int = 0
     private lateinit var playPauseBtn: ImageButton
@@ -143,7 +140,6 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 binding.playerView.player = player
                 playVideo()
                 playInFullscreen(enable = isFullscreen)
-                setVisibility()
             }
         }
         if(repeat) findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_all)
@@ -197,20 +193,20 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 playInFullscreen(enable = true)
             }
         }
-        findViewById<ImageButton>(R.id.lockButton).setOnClickListener {
+        binding.lockButton.setOnClickListener {
             if(!isLocked){
                 //for hiding
                 isLocked = true
                 binding.playerView.hideController()
                 binding.playerView.useController = false
-                findViewById<ImageButton>(R.id.lockButton).setImageResource(R.drawable.close_lock_icon)
+                binding.lockButton.setImageResource(R.drawable.close_lock_icon)
             }
             else{
                 //for showing
                 isLocked = false
                 binding.playerView.useController = true
                 binding.playerView.showController()
-                findViewById<ImageButton>(R.id.lockButton).setImageResource(R.drawable.lock_open_icon)
+                binding.lockButton.setImageResource(R.drawable.lock_open_icon)
             }
         }
         findViewById<ImageButton>(R.id.moreFeaturesBtn).setOnClickListener {
@@ -389,10 +385,17 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
             }
         })
         playInFullscreen(enable = isFullscreen)
-        setVisibility()
         loudnessEnhancer = LoudnessEnhancer(player.audioSessionId)
         loudnessEnhancer.enabled = true
         nowPlayingId = playerList[position].id
+
+        binding.playerView.setControllerVisibilityListener {
+            when{
+                isLocked -> binding.lockButton.visibility = View.VISIBLE
+                binding.playerView.isControllerVisible -> binding.lockButton.visibility = View.VISIBLE
+                else -> binding.lockButton.visibility = View.INVISIBLE
+            }
+        }
     }
     private fun playVideo(){
         playPauseBtn.setImageResource(R.drawable.pause_icon)
@@ -432,26 +435,6 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         }
     }
 
-    private fun setVisibility(){
-        runnable = Runnable {
-            if(binding.playerView.isControllerVisible) changeVisibility(View.VISIBLE)
-            else changeVisibility(View.INVISIBLE)
-            Handler(Looper.getMainLooper()).postDelayed(runnable, 200)
-        }
-        Handler(Looper.getMainLooper()).postDelayed(runnable, 0)
-    }
-    private fun changeVisibility(visibility: Int){
-        if(isLocked) findViewById<ImageButton>(R.id.lockButton).visibility = View.VISIBLE
-        else findViewById<ImageButton>(R.id.lockButton).visibility = visibility
-        if(moreTime == 2){
-            findViewById<ImageButton>(R.id.rewindBtn).visibility = View.GONE
-            findViewById<ImageButton>(R.id.forwardBtn).visibility = View.GONE
-        }else ++moreTime
-        //for lockscreen -- hiding double tap
-//        binding.rewindFL.visibility = visibility
-//        binding.forwardFL.visibility = visibility
-
-    }
     private fun changeSpeed(isIncrement: Boolean){
         if(isIncrement){
             if(speed <= 2.9f){

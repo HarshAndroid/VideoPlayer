@@ -51,17 +51,6 @@
 
   </LinearLayout>
 
-  <ImageButton
-      android:id="@+id/lockButton"
-      android:layout_width="50dp"
-      android:layout_height="50dp"
-      android:backgroundTint="@android:color/transparent"
-      android:contentDescription="@string/lock"
-      android:src="@drawable/lock_open_icon"
-      app:layout_constraintEnd_toEndOf="@+id/topController"
-      app:layout_constraintTop_toTopOf="parent"
-      app:tint="@color/white" />
-
   <LinearLayout
       android:id="@+id/linearLayout"
       android:layout_width="match_parent"
