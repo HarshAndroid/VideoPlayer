@@ -123,6 +123,15 @@
       android:gravity="end|bottom">
 
     <ImageButton
+        android:id="@+id/orientationBtn"
+        android:layout_width="45dp"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/orientation_icon"
+        android:contentDescription="@string/orientation"
+        app:tint="@color/white" />
+
+    <ImageButton
         android:id="@+id/repeatBtn"
         android:layout_width="45dp"
         android:layout_height="match_parent"

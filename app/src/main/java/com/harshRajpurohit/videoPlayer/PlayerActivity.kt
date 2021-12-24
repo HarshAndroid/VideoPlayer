@@ -5,6 +5,7 @@ import android.app.AppOpsManager
 import android.app.PictureInPictureParams
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
 import android.media.AudioManager
@@ -145,8 +146,16 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         if(repeat) findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_all)
         else findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_off)
     }
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SourceLockedOrientationActivity")
     private fun initializeBinding(){
+
+        findViewById<ImageButton>(R.id.orientationBtn).setOnClickListener {
+            requestedOrientation = if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+            else
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+        }
+
         findViewById<FrameLayout>(R.id.forwardFL).setOnClickListener(DoubleClickListener(callback = object :DoubleClickListener.Callback{
             override fun doubleClicked() {
                 binding.playerView.showController()
@@ -395,6 +404,9 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 binding.playerView.isControllerVisible -> binding.lockButton.visibility = View.VISIBLE
                 else -> binding.lockButton.visibility = View.INVISIBLE
             }
+
+            findViewById<ImageButton>(R.id.forwardBtn).visibility = View.GONE
+            findViewById<ImageButton>(R.id.rewindBtn).visibility = View.GONE
         }
     }
     private fun playVideo(){

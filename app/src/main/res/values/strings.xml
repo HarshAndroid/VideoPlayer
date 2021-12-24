@@ -39,4 +39,5 @@
     <string name="delete">Delete</string>
     <string name="info">Info</string>
     <string name="share">Share</string>
+    <string name="orientation">Orientation</string>
 </resources>
