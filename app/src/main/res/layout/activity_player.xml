@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:controller_layout_id="@layout/custom_control_view"
-        android:keepScreenOn="true"/>
+        android:keepScreenOn="true"
+        app:show_buffering="always"/>
 
     <ImageButton
         android:id="@+id/lockButton"
