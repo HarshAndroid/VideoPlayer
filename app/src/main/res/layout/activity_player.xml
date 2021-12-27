@@ -7,13 +7,39 @@
     tools:context=".PlayerActivity"
     android:background="@color/black">
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/playerView"
+<!--    <com.google.android.exoplayer2.ui.PlayerView-->
+<!--        android:id="@+id/playerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:controller_layout_id="@layout/custom_control_view"-->
+<!--        android:keepScreenOn="true"-->
+<!--        app:show_buffering="always"/>-->
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:controller_layout_id="@layout/custom_control_view"
-        android:keepScreenOn="true"
-        app:show_buffering="always"/>
+        android:layout_height="match_parent">
+
+        <com.github.vkay94.dtpv.DoubleTapPlayerView
+            android:id="@+id/playerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:controller_layout_id="@layout/custom_control_view"
+            android:background="@color/black"
+            app:dtpv_controller="@id/ytOverlay"
+            android:keepScreenOn="true"
+            app:show_buffering="always"/>
+
+        <com.github.vkay94.dtpv.youtube.YouTubeOverlay
+            android:id="@+id/ytOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:yt_playerView="@id/playerView"
+            android:background="#77000000"
+            android:visibility="invisible"/>
+
+    </FrameLayout>
+
+
 
     <ImageButton
         android:id="@+id/lockButton"

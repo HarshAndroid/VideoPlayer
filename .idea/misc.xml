@@ -21,7 +21,7 @@
         <entry key="app/src/main/res/drawable/search_icon.xml" value="0.1527777777777778" />
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_player.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_player.xml" value="0.33" />
         <entry key="app/src/main/res/layout/booster.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/layout/custom_control_view.xml" value="0.18" />
         <entry key="app/src/main/res/layout/details_view.xml" value="0.18802083333333333" />

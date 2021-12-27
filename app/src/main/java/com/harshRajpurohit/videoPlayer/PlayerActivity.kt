@@ -18,7 +18,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -26,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.github.vkay94.dtpv.youtube.YouTubeOverlay
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -138,7 +138,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 speed = 1.0f
                 videoTitle.text = playerList[position].title
                 videoTitle.isSelected = true
-                binding.playerView.player = player
+                doubleTapEnable()
                 playVideo()
                 playInFullscreen(enable = isFullscreen)
             }
@@ -156,22 +156,6 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
         }
 
-        findViewById<FrameLayout>(R.id.forwardFL).setOnClickListener(DoubleClickListener(callback = object :DoubleClickListener.Callback{
-            override fun doubleClicked() {
-                binding.playerView.showController()
-                findViewById<ImageButton>(R.id.forwardBtn).visibility = View.VISIBLE
-                player.seekTo(player.currentPosition + 10000)
-                moreTime = 0
-            }
-        }))
-        findViewById<FrameLayout>(R.id.rewindFL).setOnClickListener(DoubleClickListener(callback = object :DoubleClickListener.Callback{
-            override fun doubleClicked() {
-                binding.playerView.showController()
-                findViewById<ImageButton>(R.id.rewindBtn).visibility = View.VISIBLE
-                player.seekTo(player.currentPosition - 10000)
-                moreTime = 0
-            }
-        }))
         findViewById<ImageButton>(R.id.backBtn).setOnClickListener {
             finish()
         }
@@ -382,7 +366,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         videoTitle.text = playerList[position].title
         videoTitle.isSelected = true
         player = ExoPlayer.Builder(this).setTrackSelector(trackSelector).build()
-        binding.playerView.player = player
+        doubleTapEnable()
         val mediaItem = MediaItem.fromUri(playerList[position].artUri)
         player.setMediaItem(mediaItem)
         player.prepare()
@@ -404,9 +388,6 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 binding.playerView.isControllerVisible -> binding.lockButton.visibility = View.VISIBLE
                 else -> binding.lockButton.visibility = View.INVISIBLE
             }
-
-            findViewById<ImageButton>(R.id.forwardBtn).visibility = View.GONE
-            findViewById<ImageButton>(R.id.rewindBtn).visibility = View.GONE
         }
     }
     private fun playVideo(){
@@ -490,5 +471,19 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         super.onResume()
         if(audioManager == null) audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         audioManager!!.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
+    }
+
+    private fun doubleTapEnable(){
+        binding.playerView.player = player
+        binding.ytOverlay.performListener(object: YouTubeOverlay.PerformListener{
+            override fun onAnimationEnd() {
+                binding.ytOverlay.visibility = View.GONE
+            }
+
+            override fun onAnimationStart() {
+                binding.ytOverlay.visibility = View.VISIBLE
+            }
+        })
+        binding.ytOverlay.player(player)
     }
 }
