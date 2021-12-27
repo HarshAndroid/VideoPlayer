@@ -32,6 +32,8 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+import com.google.android.exoplayer2.ui.DefaultTimeBar
+import com.google.android.exoplayer2.ui.TimeBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.harshRajpurohit.videoPlayer.databinding.ActivityPlayerBinding
 import com.harshRajpurohit.videoPlayer.databinding.BoosterBinding
@@ -47,7 +49,6 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
 
     private lateinit var binding: ActivityPlayerBinding
     private var isSubtitle: Boolean = true
-    private var moreTime: Int = 0
     private lateinit var playPauseBtn: ImageButton
     private lateinit var fullScreenBtn: ImageButton
     private lateinit var videoTitle: TextView
@@ -141,6 +142,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 doubleTapEnable()
                 playVideo()
                 playInFullscreen(enable = isFullscreen)
+                seekBarFeature()
             }
         }
         if(repeat) findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_all)
@@ -381,6 +383,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         loudnessEnhancer = LoudnessEnhancer(player.audioSessionId)
         loudnessEnhancer.enabled = true
         nowPlayingId = playerList[position].id
+        seekBarFeature()
 
         binding.playerView.setControllerVisibilityListener {
             when{
@@ -485,5 +488,22 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
             }
         })
         binding.ytOverlay.player(player)
+    }
+
+    private fun seekBarFeature(){
+        findViewById<DefaultTimeBar>(R.id.exo_progress).addListener(object: TimeBar.OnScrubListener{
+            override fun onScrubStart(timeBar: TimeBar, position: Long) {
+                pauseVideo()
+            }
+
+            override fun onScrubMove(timeBar: TimeBar, position: Long) {
+                player.seekTo(position)
+            }
+
+            override fun onScrubStop(timeBar: TimeBar, position: Long, canceled: Boolean) {
+                playVideo()
+            }
+
+        })
     }
 }
