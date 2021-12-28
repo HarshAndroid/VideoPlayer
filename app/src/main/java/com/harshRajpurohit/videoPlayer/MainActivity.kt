@@ -1,11 +1,9 @@
 package com.harshRajpurohit.videoPlayer
 
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,16 +20,12 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.harshRajpurohit.videoPlayer.databinding.ActivityMainBinding
 import com.harshRajpurohit.videoPlayer.databinding.ThemeViewBinding
-import java.io.File
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
-    private val sortList = arrayOf(MediaStore.Video.Media.DATE_ADDED + " DESC", MediaStore.Video.Media.DATE_ADDED,
-        MediaStore.Video.Media.TITLE, MediaStore.Video.Media.TITLE + " DESC", MediaStore.Video.Media.SIZE,
-        MediaStore.Video.Media.SIZE + " DESC")
     private var runnable: Runnable? = null
 
     companion object{
@@ -40,11 +34,14 @@ class MainActivity : AppCompatActivity() {
         lateinit var searchList: ArrayList<Video>
         var search: Boolean = false
         var themeIndex: Int = 0
-        private var sortValue: Int = 0
+        var sortValue: Int = 0
         val themesList = arrayOf(R.style.coolPinkNav, R.style.coolBlueNav, R.style.coolPurpleNav, R.style.coolGreenNav,
         R.style.coolRedNav, R.style.coolBlackNav)
         var dataChanged: Boolean = false
         var adapterChanged: Boolean = false
+        val sortList = arrayOf(MediaStore.Video.Media.DATE_ADDED + " DESC", MediaStore.Video.Media.DATE_ADDED,
+            MediaStore.Video.Media.TITLE, MediaStore.Video.Media.TITLE + " DESC", MediaStore.Video.Media.SIZE,
+            MediaStore.Video.Media.SIZE + " DESC")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,12 +60,12 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if(requestRuntimePermission()){
             folderList = ArrayList()
-            videoList = getAllVideos()
+            videoList = getAllVideos(this)
             setFragment(VideosFragment())
 
             runnable = Runnable {
                 if(dataChanged){
-                    videoList = getAllVideos()
+                    videoList = getAllVideos(this)
                     dataChanged = false
                     adapterChanged = true
                 }
@@ -156,7 +153,7 @@ class MainActivity : AppCompatActivity() {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
                 folderList = ArrayList()
-                videoList = getAllVideos()
+                videoList = getAllVideos(this)
                 setFragment(VideosFragment())
             }
             else
@@ -174,50 +171,6 @@ class MainActivity : AppCompatActivity() {
         if(toggle.onOptionsItemSelected(item))
             return true
         return super.onOptionsItemSelected(item)
-    }
-
-    @SuppressLint("InlinedApi", "Recycle", "Range")
-    private fun getAllVideos(): ArrayList<Video>{
-        val sortEditor = getSharedPreferences("Sorting", MODE_PRIVATE)
-        sortValue = sortEditor.getInt("sortValue", 0)
-
-        val tempList = ArrayList<Video>()
-        val tempFolderList = ArrayList<String>()
-        val projection = arrayOf(MediaStore.Video.Media.TITLE, MediaStore.Video.Media.SIZE, MediaStore.Video.Media._ID,
-            MediaStore.Video.Media.BUCKET_DISPLAY_NAME, MediaStore.Video.Media.DATA, MediaStore.Video.Media.DATE_ADDED,
-            MediaStore.Video.Media.DURATION, MediaStore.Video.Media.BUCKET_ID)
-        val cursor = this.contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection, null, null,
-            sortList[sortValue])
-        if(cursor != null)
-            if(cursor.moveToNext())
-                do {
-                    val titleC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.TITLE))
-                    val idC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media._ID))
-                    val folderC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))
-                    val folderIdC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.BUCKET_ID))
-                    val sizeC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.SIZE))
-                    val pathC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))
-                    //just add null checking in end, this 0L is alternative value if below function returns a null value
-                    val durationC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DURATION))?.toLong()?:0L
-
-                    try {
-                        val file = File(pathC)
-                        val artUriC = Uri.fromFile(file)
-                        val video = Video(title = titleC, id = idC, folderName = folderC, duration = durationC, size = sizeC,
-                        path = pathC, artUri = artUriC)
-                        if(file.exists()) tempList.add(video)
-
-                        //for adding folders
-                        if(!tempFolderList.contains(folderC)){
-                            tempFolderList.add(folderC)
-                            folderList.add(Folder(id = folderIdC, folderName = folderC))
-                        }
-
-
-                    }catch (e:Exception){}
-                }while (cursor.moveToNext())
-                cursor?.close()
-        return tempList
     }
 
     private fun saveTheme(index: Int){

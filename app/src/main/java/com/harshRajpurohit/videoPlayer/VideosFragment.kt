@@ -31,6 +31,17 @@ class VideosFragment : Fragment() {
         adapter = VideoAdapter(requireContext(), MainActivity.videoList)
         binding.VideoRV.adapter = adapter
         binding.totalVideos.text = "Total Videos: ${MainActivity.videoList.size}"
+
+        //for refreshing layout
+        binding.root.setOnRefreshListener {
+            MainActivity.videoList = getAllVideos(requireContext())
+            adapter.updateList(MainActivity.videoList)
+            binding.totalVideos.text = "Total Videos: ${MainActivity.videoList.size}"
+
+            binding.root.isRefreshing = false
+        }
+
+
         binding.nowPlayingBtn.setOnClickListener{
             val intent = Intent(requireContext(), PlayerActivity::class.java)
             intent.putExtra("class", "NowPlaying")
