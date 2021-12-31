@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
 import android.media.AudioManager
 import android.media.audiofx.LoudnessEnhancer
@@ -14,14 +15,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GestureDetectorCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -43,15 +42,17 @@ import java.io.File
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.abs
 import kotlin.system.exitProcess
 
-class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListener {
+class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListener, GestureDetector.OnGestureListener {
 
     private lateinit var binding: ActivityPlayerBinding
     private var isSubtitle: Boolean = true
     private lateinit var playPauseBtn: ImageButton
     private lateinit var fullScreenBtn: ImageButton
     private lateinit var videoTitle: TextView
+    private lateinit var gestureDetectorCompat: GestureDetectorCompat
 
     companion object{
         private var audioManager: AudioManager? = null
@@ -82,6 +83,8 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         videoTitle = findViewById(R.id.videoTitle)
         playPauseBtn = findViewById(R.id.playPauseBtn)
         fullScreenBtn = findViewById(R.id.fullScreenBtn)
+
+        gestureDetectorCompat = GestureDetectorCompat(this, this)
 
         //for immersive mode
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -476,6 +479,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         audioManager!!.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun doubleTapEnable(){
         binding.playerView.player = player
         binding.ytOverlay.performListener(object: YouTubeOverlay.PerformListener{
@@ -488,6 +492,10 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
             }
         })
         binding.ytOverlay.player(player)
+        binding.playerView.setOnTouchListener { _, motionEvent ->
+            gestureDetectorCompat.onTouchEvent(motionEvent)
+            return@setOnTouchListener false
+        }
     }
 
     private fun seekBarFeature(){
@@ -505,5 +513,31 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
             }
 
         })
+    }
+
+    override fun onDown(p0: MotionEvent?): Boolean = false
+    override fun onShowPress(p0: MotionEvent?) = Unit
+    override fun onSingleTapUp(p0: MotionEvent?): Boolean = false
+    override fun onLongPress(p0: MotionEvent?) = Unit
+    override fun onFling(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean = false
+
+    override fun onScroll(event: MotionEvent?, event1: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+
+        val sWidth = Resources.getSystem().displayMetrics.widthPixels
+
+        if(abs(distanceX) < abs(distanceY)){
+            if(event!!.x < sWidth/2){
+                //brightness
+                binding.brightnessIcon.visibility = View.VISIBLE
+                binding.volumeIcon.visibility = View.GONE
+            }
+            else{
+                //volume
+                binding.brightnessIcon.visibility = View.GONE
+                binding.volumeIcon.visibility = View.VISIBLE
+            }
+        }
+
+        return true
     }
 }

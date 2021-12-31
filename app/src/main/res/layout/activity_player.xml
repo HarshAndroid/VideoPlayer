@@ -16,6 +16,7 @@
 <!--        app:show_buffering="always"/>-->
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,22 +24,21 @@
             android:id="@+id/playerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:controller_layout_id="@layout/custom_control_view"
             android:background="@color/black"
-            app:dtpv_controller="@id/ytOverlay"
             android:keepScreenOn="true"
-            app:show_buffering="always"/>
+            app:controller_layout_id="@layout/custom_control_view"
+            app:dtpv_controller="@id/ytOverlay"
+            app:show_buffering="always" />
 
         <com.github.vkay94.dtpv.youtube.YouTubeOverlay
             android:id="@+id/ytOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:yt_playerView="@id/playerView"
             android:background="#77000000"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:yt_playerView="@id/playerView" />
 
     </FrameLayout>
-
 
 
     <ImageButton
@@ -51,6 +51,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
+
+    <Button
+        android:id="@+id/brightnessIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:drawableLeft="@drawable/brightness_icon"
+        android:text="@string/O"
+        tools:ignore="RtlHardcoded"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="#42000000"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/volumeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:drawableLeft="@drawable/volume_icon"
+        android:text="@string/O"
+        tools:ignore="RtlHardcoded"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="#42000000"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
