@@ -68,6 +68,8 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         private var speed: Float = 1.0f
         var pipStatus: Int = 0
         var nowPlayingId: String = ""
+        private var brightness: Int = 0
+        private var volume: Int = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -477,6 +479,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         super.onResume()
         if(audioManager == null) audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         audioManager!!.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
+        if(brightness != 0) setScreenBrightness(brightness)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -493,7 +496,15 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         })
         binding.ytOverlay.player(player)
         binding.playerView.setOnTouchListener { _, motionEvent ->
-            gestureDetectorCompat.onTouchEvent(motionEvent)
+            binding.playerView.isDoubleTapEnabled = false
+            if(!isLocked){
+                binding.playerView.isDoubleTapEnabled = true
+                gestureDetectorCompat.onTouchEvent(motionEvent)
+                if(motionEvent.action == MotionEvent.ACTION_UP) {
+                    binding.brightnessIcon.visibility = View.GONE
+                    binding.volumeIcon.visibility = View.GONE
+                }
+            }
             return@setOnTouchListener false
         }
     }
@@ -530,14 +541,32 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 //brightness
                 binding.brightnessIcon.visibility = View.VISIBLE
                 binding.volumeIcon.visibility = View.GONE
+                val increase = distanceY > 0
+                val newValue = if(increase) brightness + 1 else brightness - 1
+                if(newValue in 0..30) brightness = newValue
+                binding.brightnessIcon.text = brightness.toString()
+                setScreenBrightness(brightness)
             }
             else{
                 //volume
                 binding.brightnessIcon.visibility = View.GONE
                 binding.volumeIcon.visibility = View.VISIBLE
+                val maxVolume = audioManager!!.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+                val increase = distanceY > 0
+                val newValue = if(increase) volume + 1 else volume - 1
+                if(newValue in 0..maxVolume) volume = newValue
+                binding.volumeIcon.text = volume.toString()
+                audioManager!!.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0)
             }
         }
 
         return true
+    }
+
+    private fun setScreenBrightness(value: Int){
+        val d = 1.0f/30
+        val lp = this.window.attributes
+        lp.screenBrightness = d * value
+        this.window.attributes = lp
     }
 }
