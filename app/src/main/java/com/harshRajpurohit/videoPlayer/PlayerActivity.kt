@@ -1,6 +1,7 @@
 package com.harshRajpurohit.videoPlayer
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.AppOpsManager
 import android.app.PictureInPictureParams
 import android.content.Context
@@ -8,6 +9,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.AudioManager
 import android.media.audiofx.LoudnessEnhancer
@@ -223,23 +225,46 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 dialog.dismiss()
                 playVideo()
                 val audioTrack = ArrayList<String>()
-                for(i in 0 until player.currentTrackGroups.length){
-                    if(player.currentTrackGroups.get(i).getFormat(0).selectionFlags == C.SELECTION_FLAG_DEFAULT){
-                        audioTrack.add(Locale(player.currentTrackGroups.get(i).getFormat(0).language.toString()).displayLanguage)
+                val audioList = ArrayList<String>()
+//                for(i in 0 until player.currentTrackGroups.length){
+//                    if(player.currentTrackGroups.get(i).getFormat(0).selectionFlags == C.SELECTION_FLAG_DEFAULT){
+//                        audioTrack.add(Locale(player.currentTrackGroups.get(i).getFormat(0).language.toString()).displayLanguage)
+//                    }
+//                }
+
+                for(group in player.currentTracksInfo.trackGroupInfos){
+                    if(group.trackType == C.TRACK_TYPE_AUDIO){
+                        val groupInfo = group.trackGroup
+                        for (i in 0 until groupInfo.length){
+                            audioTrack.add(groupInfo.getFormat(i).language.toString())
+                            audioList.add("${audioList.size + 1}. " + Locale(groupInfo.getFormat(i).language.toString()).displayLanguage
+                                    + " (${groupInfo.getFormat(i).label})")
+                        }
                     }
                 }
 
-                val tempTracks = audioTrack.toArray(arrayOfNulls<CharSequence>(audioTrack.size))
-                MaterialAlertDialogBuilder(this, R.style.alertDialog)
+                if(audioList[0].contains("null")) audioList[0] = "1. Default Track"
+
+                val tempTracks = audioList.toArray(arrayOfNulls<CharSequence>(audioList.size))
+                val audioDialog = MaterialAlertDialogBuilder(this, R.style.alertDialog)
                     .setTitle("Select Language")
                     .setOnCancelListener { playVideo() }
-                    .setBackground(ColorDrawable(0x803700B3.toInt()))
+                    .setPositiveButton("Off Audio"){ self, _ ->
+                        trackSelector.setParameters(trackSelector.buildUponParameters().setRendererDisabled(
+                            C.TRACK_TYPE_AUDIO, true
+                        ))
+                        self.dismiss()
+                    }
                     .setItems(tempTracks){_, position ->
-                        Toast.makeText(this, audioTrack[position] + " Selected", Toast.LENGTH_SHORT).show()
-                        trackSelector.setParameters(trackSelector.buildUponParameters().setPreferredAudioLanguage(audioTrack[position]))
+                        Toast.makeText(this, audioList[position] + " Selected", Toast.LENGTH_SHORT).show()
+                        trackSelector.setParameters(trackSelector.buildUponParameters()
+                            .setRendererDisabled(C.TRACK_TYPE_AUDIO, false)
+                            .setPreferredAudioLanguage(audioTrack[position]))
                     }
                     .create()
-                    .show()
+                audioDialog.show()
+                audioDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE)
+                audioDialog.window?.setBackgroundDrawable(ColorDrawable(0x99000000.toInt()))
             }
             bindingMF.subtitlesBtn.setOnClickListener {
                 if(isSubtitle){
