@@ -503,6 +503,12 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 if(motionEvent.action == MotionEvent.ACTION_UP) {
                     binding.brightnessIcon.visibility = View.GONE
                     binding.volumeIcon.visibility = View.GONE
+                    //for immersive mode
+                    WindowCompat.setDecorFitsSystemWindows(window, false)
+                    WindowInsetsControllerCompat(window, binding.root).let { controller ->
+                        controller.hide(WindowInsetsCompat.Type.systemBars())
+                        controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    }
                 }
             }
             return@setOnTouchListener false
@@ -535,9 +541,14 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
     override fun onScroll(event: MotionEvent?, event1: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
 
         val sWidth = Resources.getSystem().displayMetrics.widthPixels
+        val sHeight = Resources.getSystem().displayMetrics.heightPixels
+
+        val border = 100 * Resources.getSystem().displayMetrics.density.toInt()
+        if(event!!.x < border || event.y < border || event.x > sWidth - border || event.y > sHeight - border)
+            return false
 
         if(abs(distanceX) < abs(distanceY)){
-            if(event!!.x < sWidth/2){
+            if(event.x < sWidth/2){
                 //brightness
                 binding.brightnessIcon.visibility = View.VISIBLE
                 binding.volumeIcon.visibility = View.GONE
