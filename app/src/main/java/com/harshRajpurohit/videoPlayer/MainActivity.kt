@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
     private var runnable: Runnable? = null
+    private lateinit var currentFragment: Fragment
 
     companion object{
         lateinit var videoList: ArrayList<Video>
@@ -133,6 +134,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun setFragment(fragment: Fragment){
+        currentFragment = fragment
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentFL, fragment)
         transaction.disallowAddToBackStack()
@@ -186,5 +188,10 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         runnable = null
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        (currentFragment as VideosFragment).adapter.onResult(requestCode, resultCode)
     }
 }

@@ -1,6 +1,7 @@
 package com.harshRajpurohit.videoPlayer
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -8,8 +9,7 @@ import android.graphics.Color
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
-import android.provider.Settings
+import android.provider.MediaStore
 import android.text.SpannableStringBuilder
 import android.text.format.DateUtils
 import android.text.format.Formatter
@@ -29,7 +29,11 @@ import com.harshRajpurohit.videoPlayer.databinding.VideoMoreFeaturesBinding
 import com.harshRajpurohit.videoPlayer.databinding.VideoViewBinding
 import java.io.File
 
-class VideoAdapter(private val context: Context, private var videoList: ArrayList<Video>, private var isFolder: Boolean = false) : RecyclerView.Adapter<VideoAdapter.MyHolder>() {
+class VideoAdapter(private val context: Context, private var videoList: ArrayList<Video>, private var isFolder: Boolean = false)
+    : RecyclerView.Adapter<VideoAdapter.MyHolder>() {
+
+    private var newPosition = 0
+
     class MyHolder(binding: VideoViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.videoName
         val folder = binding.folderName
@@ -43,7 +47,7 @@ class VideoAdapter(private val context: Context, private var videoList: ArrayLis
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: MyHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.title.text = videoList[position].title
         holder.folder.text = videoList[position].folderName
         holder.duration.text = DateUtils.formatElapsedTime(videoList[position].duration/1000)
@@ -73,6 +77,8 @@ class VideoAdapter(private val context: Context, private var videoList: ArrayLis
         }
         holder.root.setOnLongClickListener {
 
+            newPosition = position
+
             val customDialog = LayoutInflater.from(context).inflate(R.layout.video_more_features, holder.root, false)
             val bindingMF = VideoMoreFeaturesBinding.bind(customDialog)
             val dialog = MaterialAlertDialogBuilder(context).setView(customDialog)
@@ -80,7 +86,6 @@ class VideoAdapter(private val context: Context, private var videoList: ArrayLis
             dialog.show()
 
             bindingMF.renameBtn.setOnClickListener {
-                requestPermissionR()
                 dialog.dismiss()
                 val customDialogRF = LayoutInflater.from(context).inflate(R.layout.rename_field, holder.root, false)
                 val bindingRF = RenameFieldBinding.bind(customDialogRF)
@@ -167,48 +172,8 @@ class VideoAdapter(private val context: Context, private var videoList: ArrayLis
             }
 
             bindingMF.deleteBtn.setOnClickListener {
-                requestPermissionR()
                 dialog.dismiss()
-                val dialogDF = MaterialAlertDialogBuilder(context)
-                    .setTitle("Delete Video?")
-                    .setMessage(videoList[position].title)
-                    .setPositiveButton("Yes"){self, _ ->
-                        val file = File(videoList[position].path)
-                        if(file.exists() && file.delete()){
-                            MediaScannerConnection.scanFile(context, arrayOf(file.path), arrayOf("video/*"), null)
-                            when{
-                                MainActivity.search ->{
-                                    MainActivity.dataChanged = true
-                                    videoList.removeAt(position)
-                                    notifyDataSetChanged()
-                                }
-                                isFolder -> {
-                                    MainActivity.dataChanged = true
-                                    FoldersActivity.currentFolderVideos.removeAt(position)
-                                    notifyDataSetChanged()
-                                }
-                                else ->{
-                                    MainActivity.videoList.removeAt(position)
-                                    notifyDataSetChanged()
-                                }
-                            }
-                        }
-                        else{
-                            Toast.makeText(context, "Permission Denied!!", Toast.LENGTH_SHORT).show()
-                        }
-                        self.dismiss()
-                    }
-                    .setNegativeButton("No"){self, _ ->
-                        self.dismiss()
-                    }
-                    .create()
-                dialogDF.show()
-                dialogDF.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(
-                    MaterialColors.getColor(context, R.attr.themeColor, Color.RED)
-                )
-                dialogDF.getButton(AlertDialog.BUTTON_NEGATIVE).setBackgroundColor(
-                    MaterialColors.getColor(context, R.attr.themeColor, Color.RED)
-                )
+                requestDeleteR(position = position)
             }
 
             return@setOnLongClickListener true
@@ -232,14 +197,78 @@ class VideoAdapter(private val context: Context, private var videoList: ArrayLis
     }
 
     //for requesting android 11 or higher storage permission
-    private fun requestPermissionR(){
+//    private fun requestPermissionR(){
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                if(!Environment.isExternalStorageManager()){
+//                    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+//                    intent.addCategory("android.intent.category.DEFAULT")
+//                    intent.data = Uri.parse("package:${context.applicationContext.packageName}")
+//                    ContextCompat.startActivity(context, intent, null)
+//                }
+//            }
+//    }
+
+    private fun requestDeleteR(position: Int){
+        //list of videos to delete
+        val uriList: List<Uri> = listOf(Uri.withAppendedPath(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, videoList[position].id))
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if(!Environment.isExternalStorageManager()){
-                    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                    intent.addCategory("android.intent.category.DEFAULT")
-                    intent.data = Uri.parse("package:${context.applicationContext.packageName}")
-                    ContextCompat.startActivity(context, intent, null)
+
+            //requesting for delete permission
+            val pi = MediaStore.createDeleteRequest(context.contentResolver, uriList)
+            (context as Activity).startIntentSenderForResult(pi.intentSender, 123,
+                null, 0, 0, 0, null)
+        }
+        else{
+            //for devices less than android 11
+            val file = File(videoList[position].path)
+            val builder = MaterialAlertDialogBuilder(context)
+            builder.setTitle("Delete Video?")
+                .setMessage(videoList[position].title)
+                .setPositiveButton("Yes"){ self, _ ->
+                    if(file.exists() && file.delete()){
+                        MediaScannerConnection.scanFile(context, arrayOf(file.path), null, null)
+                        updateDeleteUI(position = position)
+                    }
+                    self.dismiss()
                 }
+                .setNegativeButton("No"){self, _ -> self.dismiss() }
+            val delDialog = builder.create()
+            delDialog.show()
+            delDialog.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(
+                MaterialColors.getColor(context, R.attr.themeColor, Color.RED)
+            )
+            delDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setBackgroundColor(
+                MaterialColors.getColor(context, R.attr.themeColor, Color.RED)
+            )
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun updateDeleteUI(position: Int){
+        when{
+            MainActivity.search -> {
+                MainActivity.dataChanged = true
+                videoList.removeAt(position)
+                notifyDataSetChanged()
             }
+            isFolder -> {
+                MainActivity.dataChanged = true
+                FoldersActivity.currentFolderVideos.removeAt(position)
+                notifyDataSetChanged()
+            }
+            else -> {
+                MainActivity.videoList.removeAt(position)
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    fun onResult(requestCode: Int, resultCode: Int){
+        when(requestCode){
+            123 -> {
+                if(resultCode == Activity.RESULT_OK) updateDeleteUI(newPosition)
+            }
+        }
     }
 }
