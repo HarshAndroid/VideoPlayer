@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.harshRajpurohit.videoPlayer">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
+        android:maxSdkVersion="28" />
 
     <application
         android:allowBackup="true"

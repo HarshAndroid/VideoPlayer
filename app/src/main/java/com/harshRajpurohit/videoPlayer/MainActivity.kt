@@ -1,9 +1,11 @@
 package com.harshRajpurohit.videoPlayer
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.harshRajpurohit.videoPlayer.databinding.ActivityMainBinding
 import com.harshRajpurohit.videoPlayer.databinding.ThemeViewBinding
 import kotlin.system.exitProcess
@@ -73,6 +76,9 @@ class MainActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed(runnable!!, 200)
             }
             Handler(Looper.getMainLooper()).postDelayed(runnable!!, 0)
+        }else{
+            folderList = ArrayList()
+            videoList = ArrayList()
         }
         binding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
@@ -142,9 +148,19 @@ class MainActivity : AppCompatActivity() {
     }
     //for requesting permission
     private fun requestRuntimePermission(): Boolean{
-        if(ActivityCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE),13)
-            return false
+
+        //requesting storage permission for only devices less than api 28
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
+            if(ActivityCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE),13)
+                return false
+            }
+        }else{
+            //read external storage permission for devices higher than android 10 i.e. api 29
+            if(ActivityCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE),14)
+                return false
+            }
         }
         return true
     }
@@ -158,8 +174,29 @@ class MainActivity : AppCompatActivity() {
                 videoList = getAllVideos(this)
                 setFragment(VideosFragment())
             }
-            else
-                ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE),13)
+            else Snackbar.make(binding.root, "Storage Permission Needed!!", 5000)
+                .setAction("OK"){
+                    ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE),13)
+                }
+                .show()
+//                ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE),13)
+        }
+
+        //for read external storage permission
+        if(requestCode == 14) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+                folderList = ArrayList()
+                videoList = getAllVideos(this)
+                setFragment(VideosFragment())
+            }
+            else Snackbar.make(binding.root, "Storage Permission Needed!!", 5000)
+                .setAction("OK"){
+                    ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE),14)
+                }
+                .show()
+//            else
+//                ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE),14)
         }
     }
 
