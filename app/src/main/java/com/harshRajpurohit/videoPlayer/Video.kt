@@ -29,11 +29,12 @@ fun getAllVideos(context: Context): ArrayList<Video>{
     if(cursor != null)
         if(cursor.moveToNext())
             do {
+                //checking null safety with ?: operator
                 val titleC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.TITLE))?:"Unknown"
                 val idC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media._ID))?:"Unknown"
-                val folderC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))?:"Unknown"
+                val folderC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))?:"Internal Storage"
                 val folderIdC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.BUCKET_ID))?:"Unknown"
-                val sizeC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.SIZE))
+                val sizeC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.SIZE))?:"0"
                 val pathC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))?:"Unknown"
                 //just add null checking in end, this 0L is alternative value if below function returns a null value
                 val durationC = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DURATION))?.toLong()?:0L
@@ -46,7 +47,7 @@ fun getAllVideos(context: Context): ArrayList<Video>{
                     if(file.exists()) tempList.add(video)
 
                     //for adding folders
-                    if(!tempFolderList.contains(folderC)){
+                    if(!tempFolderList.contains(folderC) && !folderC.contains("Internal Storage")){
                         tempFolderList.add(folderC)
                         MainActivity.folderList.add(Folder(id = folderIdC, folderName = folderC))
                     }
