@@ -61,4 +61,9 @@ dependencies {
     //for doubleTapFeature
     implementation 'com.github.vkay94:DoubleTapPlayerView:1.0.4'
 
+    //for playing online content
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.16.1'
+
+    //custom chrome tabs for integrating youtube
+    implementation "androidx.browser:browser:1.4.0"
 }

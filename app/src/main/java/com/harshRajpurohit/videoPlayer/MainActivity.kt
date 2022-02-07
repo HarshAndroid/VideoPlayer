@@ -5,6 +5,7 @@ import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -17,8 +18,10 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.harshRajpurohit.videoPlayer.databinding.ActivityMainBinding
@@ -32,20 +35,27 @@ class MainActivity : AppCompatActivity() {
     private var runnable: Runnable? = null
     private lateinit var currentFragment: Fragment
 
-    companion object{
+    companion object {
         lateinit var videoList: ArrayList<Video>
         lateinit var folderList: ArrayList<Folder>
         lateinit var searchList: ArrayList<Video>
         var search: Boolean = false
         var themeIndex: Int = 0
         var sortValue: Int = 0
-        val themesList = arrayOf(R.style.coolPinkNav, R.style.coolBlueNav, R.style.coolPurpleNav, R.style.coolGreenNav,
-        R.style.coolRedNav, R.style.coolBlackNav)
+        val themesList = arrayOf(
+            R.style.coolPinkNav, R.style.coolBlueNav, R.style.coolPurpleNav, R.style.coolGreenNav,
+            R.style.coolRedNav, R.style.coolBlackNav
+        )
         var dataChanged: Boolean = false
         var adapterChanged: Boolean = false
-        val sortList = arrayOf(MediaStore.Video.Media.DATE_ADDED + " DESC", MediaStore.Video.Media.DATE_ADDED,
-            MediaStore.Video.Media.TITLE, MediaStore.Video.Media.TITLE + " DESC", MediaStore.Video.Media.SIZE,
-            MediaStore.Video.Media.SIZE + " DESC")
+        val sortList = arrayOf(
+            MediaStore.Video.Media.DATE_ADDED + " DESC",
+            MediaStore.Video.Media.DATE_ADDED,
+            MediaStore.Video.Media.TITLE,
+            MediaStore.Video.Media.TITLE + " DESC",
+            MediaStore.Video.Media.SIZE,
+            MediaStore.Video.Media.SIZE + " DESC"
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +72,13 @@ class MainActivity : AppCompatActivity() {
         binding.root.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        if(requestRuntimePermission()){
+        if (requestRuntimePermission()) {
             folderList = ArrayList()
             videoList = getAllVideos(this)
             setFragment(VideosFragment())
 
             runnable = Runnable {
-                if(dataChanged){
+                if (dataChanged) {
                     videoList = getAllVideos(this)
                     dataChanged = false
                     adapterChanged = true
@@ -76,27 +86,28 @@ class MainActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed(runnable!!, 200)
             }
             Handler(Looper.getMainLooper()).postDelayed(runnable!!, 0)
-        }else{
+        } else {
             folderList = ArrayList()
             videoList = ArrayList()
         }
         binding.bottomNav.setOnItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.videoView -> setFragment(VideosFragment())
                 R.id.foldersView -> setFragment(FoldersFragment())
             }
             return@setOnItemSelectedListener true
         }
         binding.navView.setNavigationItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.themesNav -> {
-                    val customDialog = LayoutInflater.from(this).inflate(R.layout.theme_view, binding.root, false)
+                    val customDialog =
+                        LayoutInflater.from(this).inflate(R.layout.theme_view, binding.root, false)
                     val bindingTV = ThemeViewBinding.bind(customDialog)
                     val dialog = MaterialAlertDialogBuilder(this).setView(customDialog)
                         .setTitle("Select Theme")
                         .create()
                     dialog.show()
-                    when(themeIndex){
+                    when (themeIndex) {
                         0 -> bindingTV.themePink.setBackgroundColor(Color.YELLOW)
                         1 -> bindingTV.themeBlue.setBackgroundColor(Color.YELLOW)
                         2 -> bindingTV.themePurple.setBackgroundColor(Color.YELLOW)
@@ -111,13 +122,19 @@ class MainActivity : AppCompatActivity() {
                     bindingTV.themeRed.setOnClickListener { saveTheme(4) }
                     bindingTV.themeBlack.setOnClickListener { saveTheme(5) }
                 }
-                R.id.sortOrderNav-> {
-                    val menuItems = arrayOf("Latest", "Oldest", "Name(A to Z)", "Name(Z to A)", "File Size(Smallest)"
-                    , "File Size(Largest)")
+                R.id.sortOrderNav -> {
+                    val menuItems = arrayOf(
+                        "Latest",
+                        "Oldest",
+                        "Name(A to Z)",
+                        "Name(Z to A)",
+                        "File Size(Smallest)",
+                        "File Size(Largest)"
+                    )
                     var value = sortValue
                     val dialog = MaterialAlertDialogBuilder(this)
                         .setTitle("Sort By")
-                        .setPositiveButton("OK"){_, _ ->
+                        .setPositiveButton("OK") { _, _ ->
                             val sortEditor = getSharedPreferences("Sorting", MODE_PRIVATE).edit()
                             sortEditor.putInt("sortValue", value)
                             sortEditor.apply()
@@ -126,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                             finish()
                             startActivity(intent)
                         }
-                        .setSingleChoiceItems(menuItems, sortValue){_, pos ->
+                        .setSingleChoiceItems(menuItems, sortValue) { _, pos ->
                             value = pos
                         }
                         .create()
@@ -135,9 +152,28 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.aboutNav -> startActivity(Intent(this, AboutActivity::class.java))
                 R.id.exitNav -> exitProcess(1)
+                R.id.navUrl -> startActivity(Intent(this@MainActivity, UrlActivity::class.java))
+                R.id.navYoutube -> {
+                    if (checkForInternet(this)) {
+                        val url = "https://youtube.com/"
+                        val builder = CustomTabsIntent.Builder()
+                        @Suppress("DEPRECATION")
+                        builder.setToolbarColor(
+                            MaterialColors.getColor(
+                                this,
+                                R.attr.themeColor,
+                                Color.RED
+                            )
+                        )
+                        val customTabsIntent = builder.build()
+                        customTabsIntent.intent.`package` = "com.android.chrome"
+                        customTabsIntent.launchUrl(this, Uri.parse(url))
+                    } else Snackbar.make(binding.root, "Internet Not Connected", 3000).show()
+                }
             }
             return@setNavigationItemSelectedListener true
         }
+
     }
     private fun setFragment(fragment: Fragment){
         currentFragment = fragment

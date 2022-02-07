@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/navYoutube"
+        android:title="@string/youtube"
+        android:icon="@drawable/youtube_icon" />
+    <item android:id="@+id/navUrl"
+        android:title="@string/play_online"
+        android:icon="@drawable/link_icon"/>
     <item android:id="@+id/themesNav"
         android:title="@string/themes"
         android:icon="@drawable/theme_icon"/>
