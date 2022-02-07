@@ -55,6 +55,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
     private lateinit var fullScreenBtn: ImageButton
     private lateinit var videoTitle: TextView
     private lateinit var gestureDetectorCompat: GestureDetectorCompat
+    private var minSwipeY: Float = 0f
 
     companion object{
         private var audioManager: AudioManager? = null
@@ -211,6 +212,16 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 binding.lockButton.setImageResource(R.drawable.lock_open_icon)
             }
         }
+
+        //for auto hiding & showing lock button
+        binding.playerView.setControllerVisibilityListener {
+            when{
+                isLocked -> binding.lockButton.visibility = View.VISIBLE
+                binding.playerView.isControllerVisible -> binding.lockButton.visibility = View.VISIBLE
+                else -> binding.lockButton.visibility = View.INVISIBLE
+            }
+        }
+
         findViewById<ImageButton>(R.id.moreFeaturesBtn).setOnClickListener {
             pauseVideo()
             val customDialog = LayoutInflater.from(this).inflate(R.layout.more_features, binding.root, false)
@@ -427,14 +438,6 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         loudnessEnhancer.enabled = true
         nowPlayingId = playerList[position].id
         seekBarFeature()
-
-        binding.playerView.setControllerVisibilityListener {
-            when{
-                isLocked -> binding.lockButton.visibility = View.VISIBLE
-                binding.playerView.isControllerVisible -> binding.lockButton.visibility = View.VISIBLE
-                else -> binding.lockButton.visibility = View.INVISIBLE
-            }
-        }
     }
     private fun playVideo(){
         playPauseBtn.setImageResource(R.drawable.pause_icon)
@@ -570,13 +573,17 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         })
     }
 
-    override fun onDown(p0: MotionEvent?): Boolean = false
+    override fun onDown(p0: MotionEvent?): Boolean {
+        minSwipeY = 0f
+        return false
+    }
     override fun onShowPress(p0: MotionEvent?) = Unit
     override fun onSingleTapUp(p0: MotionEvent?): Boolean = false
     override fun onLongPress(p0: MotionEvent?) = Unit
     override fun onFling(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean = false
 
     override fun onScroll(event: MotionEvent?, event1: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+        minSwipeY += distanceY
 
         val sWidth = Resources.getSystem().displayMetrics.widthPixels
         val sHeight = Resources.getSystem().displayMetrics.heightPixels
@@ -585,7 +592,9 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         if(event!!.x < border || event.y < border || event.x > sWidth - border || event.y > sHeight - border)
             return false
 
-        if(abs(distanceX) < abs(distanceY)){
+        //minSwipeY for slowly increasing brightness & volume on swipe --> try changing 50 (<50 --> quick swipe & > 50 --> slow swipe
+        // & test with your custom values
+        if(abs(distanceX) < abs(distanceY) && abs(minSwipeY) > 50){
             if(event.x < sWidth/2){
                 //brightness
                 binding.brightnessIcon.visibility = View.VISIBLE
@@ -607,6 +616,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 binding.volumeIcon.text = volume.toString()
                 audioManager!!.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0)
             }
+            minSwipeY = 0f
         }
 
         return true
