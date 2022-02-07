@@ -33,6 +33,8 @@ Some ScreenShots 😃:</br>
 <li>Background Video Playing
 <li>Video Delete, Rename & Share Feature
 <li>Decent UI with New Material Widgets
+<li>Play Online Video Using Url or Link
+<li>In-Built Youtube Integration Using Custom Chrome Tabs
 <li>And Much More....
 </ul>
   
