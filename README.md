@@ -5,7 +5,7 @@
 <b>Simple Yet A Feature Rich Video Player Application.</b><br>
 
 <b>Apk Link (Try it yourself & I would love to hear your feedback 🙂):<b>
-  <br>https://drive.google.com/file/d/1ILEW4mztuzlPpGmALq8prD6Os842J89Y/view?usp=sharing (v1.0.3)
+  <br>https://drive.google.com/file/d/1b955pdRCQAfmRjg5rQxpCM2Y8f16Cz7L/view?usp=sharing (v1.0.4)
 
 Some ScreenShots 😃:</br>
 <img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/7.png" width=45% height=30%/>
