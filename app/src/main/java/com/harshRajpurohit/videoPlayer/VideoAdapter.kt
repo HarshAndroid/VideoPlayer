@@ -199,12 +199,14 @@ class VideoAdapter(private val context: Context, private var videoList: ArrayLis
     private fun updateDeleteUI(position: Int){
         when{
             MainActivity.search -> {
-                MainActivity.dataChanged = true
+//                MainActivity.dataChanged = true
+                MainActivity.videoList = getAllVideos(context)
                 videoList.removeAt(position)
                 notifyDataSetChanged()
             }
             isFolder -> {
-                MainActivity.dataChanged = true
+//                MainActivity.dataChanged = true
+                MainActivity.videoList = getAllVideos(context)
                 FoldersActivity.currentFolderVideos.removeAt(position)
                 notifyDataSetChanged()
             }
@@ -293,26 +295,34 @@ class VideoAdapter(private val context: Context, private var videoList: ArrayLis
             MaterialColors.getColor(context,R.attr.themeColor, Color.BLACK))
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun updateRenameUI(position: Int, newName: String, newFile: File){
         when{
             MainActivity.search -> {
-                MainActivity.searchList[position].title = newName
-                MainActivity.searchList[position].path = newFile.path
-                MainActivity.searchList[position].artUri = Uri.fromFile(newFile)
-                notifyItemChanged(position)
+//                MainActivity.searchList[position].title = newName
+//                MainActivity.searchList[position].path = newFile.path
+//                MainActivity.searchList[position].artUri = Uri.fromFile(newFile)
+//                notifyItemChanged(position)
+                MainActivity.videoList = getAllVideos(context)
+                videoList = MainActivity.videoList
+                notifyDataSetChanged()
             }
             isFolder -> {
                 FoldersActivity.currentFolderVideos[position].title = newName
                 FoldersActivity.currentFolderVideos[position].path = newFile.path
                 FoldersActivity.currentFolderVideos[position].artUri = Uri.fromFile(newFile)
                 notifyItemChanged(position)
-                MainActivity.dataChanged = true
+//                MainActivity.dataChanged = true
+                MainActivity.videoList = getAllVideos(context)
             }
             else -> {
-                MainActivity.videoList[position].title = newName
-                MainActivity.videoList[position].path = newFile.path
-                MainActivity.videoList[position].artUri = Uri.fromFile(newFile)
-                notifyItemChanged(position)
+//                MainActivity.videoList[position].title = newName
+//                MainActivity.videoList[position].path = newFile.path
+//                MainActivity.videoList[position].artUri = Uri.fromFile(newFile)
+//                notifyItemChanged(position)
+                MainActivity.videoList = getAllVideos(context)
+                videoList = MainActivity.videoList
+                notifyDataSetChanged()
             }
         }
     }

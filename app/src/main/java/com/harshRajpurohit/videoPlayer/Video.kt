@@ -20,6 +20,9 @@ fun getAllVideos(context: Context): ArrayList<Video>{
     val sortEditor = context.getSharedPreferences("Sorting", AppCompatActivity.MODE_PRIVATE)
     MainActivity.sortValue = sortEditor.getInt("sortValue", 0)
 
+    //for avoiding duplicate folders
+    MainActivity.folderList = ArrayList()
+
     val tempList = ArrayList<Video>()
     val tempFolderList = ArrayList<String>()
     val projection = arrayOf(
