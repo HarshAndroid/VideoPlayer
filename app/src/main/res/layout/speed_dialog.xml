@@ -1,43 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/minusBtn"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_weight="1"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/minus_icon"
-        android:tint="@color/white"
-        tools:ignore="SpeakableTextPresentCheck" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/speedText"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:text="@string/speed"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/minusBtn"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/minus_icon"
+            android:tint="@color/white"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/plusBtn"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_weight="1"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/plus_icon"
-        android:tint="@color/white"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <TextView
+            android:id="@+id/speedText"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/speed"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/plusBtn"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/plus_icon"
+            android:tint="@color/white"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/speedCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/apply_to_all"
+            android:textColor="@color/white"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -52,7 +52,7 @@ class FoldersActivity : AppCompatActivity() {
             MediaStore.Video.Media.DURATION, MediaStore.Video.Media.BUCKET_ID)
         val cursor = this.contentResolver.query(
             MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection, selection, arrayOf(folderId),
-            MediaStore.Video.Media.DATE_ADDED + " DESC")
+            MainActivity.sortList[MainActivity.sortValue])
         if(cursor != null)
             if(cursor.moveToNext())
                 do {

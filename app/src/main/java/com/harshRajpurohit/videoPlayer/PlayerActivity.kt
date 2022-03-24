@@ -18,6 +18,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -44,7 +45,6 @@ import com.harshRajpurohit.videoPlayer.databinding.SpeedDialogBinding
 import java.io.File
 import java.text.DecimalFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 import kotlin.system.exitProcess
 
@@ -73,6 +73,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         var nowPlayingId: String = ""
         private var brightness: Int = 0
         private var volume: Int = 0
+        private var isSpeedChecked: Boolean = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -350,6 +351,12 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                     changeSpeed(isIncrement = true)
                     bindingS.speedText.text = "${DecimalFormat("#.##").format(speed)} X"
                 }
+
+                bindingS.speedCheckBox.isChecked = isSpeedChecked
+                bindingS.speedCheckBox.setOnClickListener {
+                    it as CheckBox
+                    isSpeedChecked = it.isChecked
+                }
             }
 
             bindingMF.sleepTimer.setOnClickListener {
@@ -417,7 +424,9 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
     }
     private fun createPlayer(){
         try { player.release() }catch (e: Exception){}
-        speed = 1.0f
+
+        if(!isSpeedChecked) speed = 1.0f
+
         trackSelector = DefaultTrackSelector(this)
         videoTitle.text = playerList[position].title
         videoTitle.isSelected = true
@@ -425,6 +434,9 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         doubleTapEnable()
         val mediaItem = MediaItem.fromUri(playerList[position].artUri)
         player.setMediaItem(mediaItem)
+
+        player.setPlaybackSpeed(speed)
+
         player.prepare()
         playVideo()
         player.addListener(object : Player.Listener{

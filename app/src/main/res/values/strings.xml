@@ -42,6 +42,7 @@
     <string name="share">Share</string>
     <string name="orientation">Orientation</string>
     <string name="O">0</string>
+    <string name="apply_to_all">Apply To All Upcoming Videos</string>
 
 <!-- strings for online playing features-->
     <string name="add_link">Paste Link</string>
