@@ -16,7 +16,10 @@ import android.media.audiofx.LoudnessEnhancer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.util.Log
 import android.view.*
 import android.widget.CheckBox
 import android.widget.ImageButton
@@ -38,6 +41,7 @@ import com.google.android.exoplayer2.ui.DefaultTimeBar
 import com.google.android.exoplayer2.ui.TimeBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.harshRajpurohit.videoPlayer.PlayerActivity.Companion.playerList
 import com.harshRajpurohit.videoPlayer.databinding.ActivityPlayerBinding
 import com.harshRajpurohit.videoPlayer.databinding.BoosterBinding
 import com.harshRajpurohit.videoPlayer.databinding.MoreFeaturesBinding
@@ -99,8 +103,9 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
 
-        //for handling video file intent
+
         try {
+            //for handling video file intent (Improved Version)
             if(intent.data?.scheme.contentEquals("content")){
                 playerList = ArrayList()
                 position = 0
@@ -108,12 +113,19 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                     null)
                 cursor?.let {
                     it.moveToFirst()
-                    val path = it.getString(it.getColumnIndexOrThrow(MediaStore.Video.Media.DATA))
-                    val file = File(path)
-                    val video = Video(id = "", title = file.name, duration = 0L, artUri = Uri.fromFile(file), path = path, size = ""
-                        , folderName = "")
-                    playerList.add(video)
-                    cursor.close()
+                    try {
+                        val path = it.getString(it.getColumnIndexOrThrow(MediaStore.Video.Media.DATA))
+                        val file = File(path)
+                        val video = Video(id = "", title = file.name, duration = 0L, artUri = Uri.fromFile(file), path = path, size = "", folderName = "")
+                        playerList.add(video)
+                        cursor.close()
+                    }catch (e: Exception){
+                        val tempPath = getPathFromURI(context = this, uri = intent.data!!)
+                        val tempFile = File(tempPath)
+                        val video = Video(id = "", title = tempFile.name, duration = 0L, artUri = Uri.fromFile(tempFile), path = tempPath, size = "", folderName = "")
+                        playerList.add(video)
+                        cursor.close()
+                    }
                 }
                 createPlayer()
                 initializeBinding()
@@ -126,6 +138,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
 
     }
 
+    @SuppressLint("PrivateResource")
     private fun initializeLayout(){
         when(intent.getStringExtra("class")){
             "AllVideos" -> {
@@ -157,6 +170,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         if(repeat) findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_all)
         else findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_off)
     }
+
     @SuppressLint("SetTextI18n", "SourceLockedOrientationActivity")
     private fun initializeBinding(){
 
@@ -639,5 +653,26 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         val lp = this.window.attributes
         lp.screenBrightness = d * value
         this.window.attributes = lp
+    }
+
+    //used to get path of video selected by user (if column data fails to get path)
+    private fun getPathFromURI(context: Context , uri : Uri): String {
+        var filePath = ""
+        // ExternalStorageProvider
+        val docId = DocumentsContract.getDocumentId(uri)
+        val split = docId.split(':')
+        val type = split[0]
+
+        return if ("primary".equals(type, ignoreCase = true)) {
+            "${Environment.getExternalStorageDirectory()}/${split[1]}"
+        } else {
+            //getExternalMediaDirs() added in API 21
+            val external = context.externalMediaDirs
+            if (external.size > 1) {
+                filePath = external[1].absolutePath
+                filePath = filePath.substring(0, filePath.indexOf("Android")) + split[1]
+            }
+            filePath
+        }
     }
 }
