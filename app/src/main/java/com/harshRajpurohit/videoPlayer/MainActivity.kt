@@ -182,6 +182,15 @@ class MainActivity : AppCompatActivity() {
     }
     //for requesting permission
     private fun requestRuntimePermission(): Boolean{
+        //android 13 permission request
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_MEDIA_AUDIO), 13)
+                return false
+            }
+            return true
+        }
 
         //requesting storage permission for only devices less than api 28
         if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
@@ -261,6 +270,7 @@ class MainActivity : AppCompatActivity() {
 //        runnable = null
 //    }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         (currentFragment as VideosFragment).adapter.onResult(requestCode, resultCode)

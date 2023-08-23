@@ -13,7 +13,7 @@ import java.io.File
 
 class FoldersActivity : AppCompatActivity() {
 
-    lateinit var adapter: VideoAdapter
+    private lateinit var adapter: VideoAdapter
 
     companion object{
         lateinit var currentFolderVideos: ArrayList<Video>
@@ -70,12 +70,13 @@ class FoldersActivity : AppCompatActivity() {
                             path = pathC, artUri = artUriC)
                         if(file.exists()) tempList.add(video)
 
-                    }catch (e:Exception){}
+                    }catch (_:Exception){}
                 }while (cursor.moveToNext())
         cursor?.close()
         return tempList
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         adapter.onResult(requestCode, resultCode)

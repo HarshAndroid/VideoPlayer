@@ -171,7 +171,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         else findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_off)
     }
 
-    @SuppressLint("SetTextI18n", "SourceLockedOrientationActivity")
+    @SuppressLint("SetTextI18n", "SourceLockedOrientationActivity", "PrivateResource")
     private fun initializeBinding(){
 
         findViewById<ImageButton>(R.id.orientationBtn).setOnClickListener {
@@ -599,23 +599,23 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
         })
     }
 
-    override fun onDown(p0: MotionEvent?): Boolean {
+    override fun onDown(p0: MotionEvent): Boolean {
         minSwipeY = 0f
         return false
     }
-    override fun onShowPress(p0: MotionEvent?) = Unit
-    override fun onSingleTapUp(p0: MotionEvent?): Boolean = false
-    override fun onLongPress(p0: MotionEvent?) = Unit
-    override fun onFling(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean = false
+    override fun onShowPress(p0: MotionEvent) = Unit
+    override fun onSingleTapUp(p0: MotionEvent): Boolean = false
+    override fun onLongPress(p0: MotionEvent) = Unit
+    override fun onFling(p0: MotionEvent, p1: MotionEvent, p2: Float, p3: Float): Boolean = false
 
-    override fun onScroll(event: MotionEvent?, event1: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+    override fun onScroll(event: MotionEvent, event1: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
         minSwipeY += distanceY
 
         val sWidth = Resources.getSystem().displayMetrics.widthPixels
         val sHeight = Resources.getSystem().displayMetrics.heightPixels
 
         val border = 100 * Resources.getSystem().displayMetrics.density.toInt()
-        if(event!!.x < border || event.y < border || event.x > sWidth - border || event.y > sHeight - border)
+        if(event.x < border || event.y < border || event.x > sWidth - border || event.y > sHeight - border)
             return false
 
         //minSwipeY for slowly increasing brightness & volume on swipe --> try changing 50 (<50 --> quick swipe & > 50 --> slow swipe
