@@ -184,9 +184,9 @@ class MainActivity : AppCompatActivity() {
     private fun requestRuntimePermission(): Boolean{
         //android 13 permission request
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-            if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_AUDIO)
+            if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_VIDEO)
                 != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_MEDIA_AUDIO), 13)
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_MEDIA_VIDEO), 13)
                 return false
             }
             return true
