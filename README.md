@@ -5,7 +5,7 @@
 <b>Simple Yet A Feature Rich Video Player Application.</b><br>
 
 <b>Apk Link (Try it yourself & I would love to hear your feedback 🙂):<b>
-  <br>https://drive.google.com/file/d/1Ylhs0LWSRgatGao-t2jvAFItw0jp5CW5/view?usp=sharing (v1.0.5)
+  <br>https://drive.google.com/file/d/1zMVQLBvkVRe7v0Y-VcfPn7w7M4Q-o7Ra/view?usp=sharing (v1.0.6)
 
 Some ScreenShots 😃:</br>
 <img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/7.png" width=45% height=30%/>
@@ -35,6 +35,7 @@ Some ScreenShots 😃:</br>
 <li>Decent UI with New Material Widgets
 <li>Play Online Video Using Url or Link
 <li>In-Built Youtube Integration Using Custom Chrome Tabs
+<li>Android 13 Permission Handled
 <li>And Much More....
 </ul>
   
