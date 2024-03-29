@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.VideoPlayer" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.VideoPlayer" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -24,7 +24,7 @@
 
     //custom theme
 
-    <style name="coolPinkNav" parent="Theme.MaterialComponents.Light">
+    <style name="coolPinkNav" parent="Theme.Material3.Light.NoActionBar">
         <item name="themeColor">@color/cool_pink</item>
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">?attr/themeColor</item>
@@ -36,7 +36,7 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="coolBlueNav" parent="Theme.MaterialComponents.Light">
+    <style name="coolBlueNav" parent="Theme.Material3.Light.NoActionBar">
         <item name="themeColor">@color/cool_blue</item>
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">?attr/themeColor</item>
@@ -48,7 +48,7 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="coolGreenNav" parent="Theme.MaterialComponents.Light">
+    <style name="coolGreenNav" parent="Theme.Material3.Light.NoActionBar">
         <item name="themeColor">@color/cool_green</item>
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">?attr/themeColor</item>
@@ -60,7 +60,7 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="coolPurpleNav" parent="Theme.MaterialComponents.Light">
+    <style name="coolPurpleNav" parent="Theme.Material3.Light.NoActionBar">
         <item name="themeColor">@color/purple_700</item>
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">?attr/themeColor</item>
@@ -72,7 +72,7 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="coolRedNav" parent="Theme.MaterialComponents.Light">
+    <style name="coolRedNav" parent="Theme.Material3.Light.NoActionBar">
         <item name="themeColor">@android:color/holo_red_dark</item>
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">?attr/themeColor</item>
@@ -84,7 +84,7 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="coolBlackNav" parent="Theme.MaterialComponents.Light">
+    <style name="coolBlackNav" parent="Theme.Material3.Light.NoActionBar">
         <item name="themeColor">@color/black</item>
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">?attr/themeColor</item>
@@ -98,7 +98,7 @@
 
     //for Player Activity
 
-    <style name="playerActivityTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="playerActivityTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/cool_pink</item>
         <item name="colorOnPrimary">@color/black</item>

@@ -9,10 +9,15 @@
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
 
         <FrameLayout
             android:id="@+id/fragmentFL"
@@ -23,22 +28,24 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             app:backgroundTint="@color/white"
             app:itemIconTint="?attr/themeColor"
             app:itemTextAppearanceActive="@color/black"
             app:itemTextAppearanceInactive="@android:color/darker_gray"
             app:itemTextColor="@color/black"
             app:menu="@menu/bottom_nav" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        style="@style/Widget.Design.NavigationView"
         android:layout_gravity="start"
         android:background="@color/white"
         android:fitsSystemWindows="false"
+        app:drawerLayoutCornerSize="0dp"
         app:headerLayout="@layout/nav_header"
         app:itemIconTint="?attr/themeColor"
         app:itemTextColor="@color/black"

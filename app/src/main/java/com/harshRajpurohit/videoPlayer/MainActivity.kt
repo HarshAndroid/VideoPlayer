@@ -67,11 +67,14 @@ class MainActivity : AppCompatActivity() {
         setTheme(themesList[themeIndex])
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //for Nav Drawer
         toggle = ActionBarDrawerToggle(this, binding.root, R.string.open, R.string.close)
         binding.root.addDrawerListener(toggle)
         toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
         if (requestRuntimePermission()) {
             folderList = ArrayList()
             videoList = getAllVideos(this)
