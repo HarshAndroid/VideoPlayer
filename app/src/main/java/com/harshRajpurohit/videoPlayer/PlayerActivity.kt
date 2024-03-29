@@ -680,11 +680,11 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
     override fun onShowPress(p0: MotionEvent) = Unit
     override fun onSingleTapUp(p0: MotionEvent): Boolean = false
     override fun onLongPress(p0: MotionEvent) = Unit
-    override fun onFling(p0: MotionEvent, p1: MotionEvent, p2: Float, p3: Float): Boolean = false
+    override fun onFling(e1: MotionEvent?, p0: MotionEvent, p2: Float, p3: Float): Boolean = false
 
     override fun onScroll(
+        e1: MotionEvent?,
         event: MotionEvent,
-        event1: MotionEvent,
         distanceX: Float,
         distanceY: Float
     ): Boolean {

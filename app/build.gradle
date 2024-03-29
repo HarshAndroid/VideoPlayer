@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "30.0.3"
+    compileSdk 34
+//    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.harshRajpurohit.videoPlayer"
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdk 34
         versionCode 6
         versionName "1.0.6"
     }
