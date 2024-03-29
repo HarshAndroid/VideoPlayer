@@ -15,23 +15,25 @@
             android:id="@+id/totalVideos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:paddingVertical="3dp"
+            android:paddingHorizontal="10dp"
             android:text="@string/total_videos"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/VideoRV"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/VideoRV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="50dp"
+            android:layout_height="0dp"
             android:scrollbarThumbVertical="@drawable/scroll_bar_icon"
             android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/totalVideos" />
+            app:layout_constraintTop_toBottomOf="@id/totalVideos"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/nowPlayingBtn"
