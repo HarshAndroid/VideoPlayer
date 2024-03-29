@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/videoView"
-        android:icon="@drawable/all_videos_icon"
+        android:icon="@drawable/video_icon_selector"
         android:title="@string/all_videos" />
     <item
         android:id="@+id/foldersView"
-        android:icon="@drawable/folder_icon"
+        android:icon="@drawable/folder_icon_selector"
         android:title="@string/all_folders" />
 </menu>
