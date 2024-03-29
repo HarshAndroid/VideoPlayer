@@ -20,7 +20,7 @@ class UrlPlayerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUrlPlayerBinding
 
-    companion object{
+    companion object {
         private lateinit var player: ExoPlayer
     }
 
@@ -28,7 +28,8 @@ class UrlPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            window.attributes.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
         setTheme(R.style.playerActivityTheme)
         binding = ActivityUrlPlayerBinding.inflate(layoutInflater)
@@ -38,14 +39,17 @@ class UrlPlayerActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window, binding.root).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
-            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
-        try{createPlayer()}catch (e: Exception){
+        try {
+            createPlayer()
+        } catch (e: Exception) {
             Snackbar.make(binding.root, e.localizedMessage!!.toString(), 10000).show()
         }
     }
 
-    private fun createPlayer(){
+    private fun createPlayer() {
         player = ExoPlayer.Builder(this)
             .build()
         val mediaItem = MediaItem.fromUri(UrlActivity.linkToPlay)

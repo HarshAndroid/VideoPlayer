@@ -10,41 +10,42 @@
         android:id="@+id/videoImg"
         android:layout_width="70dp"
         android:layout_height="55dp"
-        android:src="@mipmap/ic_video_player"
+        android:layout_marginStart="5dp"
         android:contentDescription="@string/image"
-        app:shapeAppearanceOverlay="@style/curved"
-        android:layout_marginStart="5dp"/>
+        android:src="@mipmap/ic_video_player"
+        app:shapeAppearanceOverlay="@style/curved" />
 
-        <TextView
-            android:id="@+id/videoName"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="@string/video_name"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:layout_marginStart="80dp"
-            android:paddingHorizontal="5dp"
-            android:layout_marginEnd="50dp"/>
-        <TextView
-            android:id="@+id/folderName"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:text="@string/folder_name"
-            android:gravity="center_vertical"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="30dp"
-            android:maxLines="1"
-            android:paddingHorizontal="5dp"
-            android:layout_marginEnd="50dp"/>
+    <TextView
+        android:id="@+id/videoName"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingHorizontal="5dp"
+        android:text="@string/video_name"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/folderName"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingHorizontal="5dp"
+        android:text="@string/folder_name" />
 
     <TextView
         android:id="@+id/duration"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:textColor="@color/black"
-        android:text="@string/duration"
+        android:layout_gravity="end"
         android:gravity="center"
-        android:layout_gravity="end"/>
+        android:text="@string/duration"
+        android:textColor="@color/black" />
 
 </com.google.android.material.card.MaterialCardView>

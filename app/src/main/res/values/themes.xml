@@ -15,13 +15,15 @@
     </style>
 
     //for dialog
+
     <style name="alertDialog" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <attr name="themeColor" format="color"/>
+    <attr name="themeColor" format="color" />
 
     //custom theme
+
     <style name="coolPinkNav" parent="Theme.MaterialComponents.Light">
         <item name="themeColor">@color/cool_pink</item>
         <item name="colorPrimary">@color/white</item>
@@ -33,6 +35,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
+
     <style name="coolBlueNav" parent="Theme.MaterialComponents.Light">
         <item name="themeColor">@color/cool_blue</item>
         <item name="colorPrimary">@color/white</item>
@@ -44,6 +47,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
+
     <style name="coolGreenNav" parent="Theme.MaterialComponents.Light">
         <item name="themeColor">@color/cool_green</item>
         <item name="colorPrimary">@color/white</item>
@@ -55,6 +59,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
+
     <style name="coolPurpleNav" parent="Theme.MaterialComponents.Light">
         <item name="themeColor">@color/purple_700</item>
         <item name="colorPrimary">@color/white</item>
@@ -66,6 +71,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
+
     <style name="coolRedNav" parent="Theme.MaterialComponents.Light">
         <item name="themeColor">@android:color/holo_red_dark</item>
         <item name="colorPrimary">@color/white</item>
@@ -77,6 +83,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
+
     <style name="coolBlackNav" parent="Theme.MaterialComponents.Light">
         <item name="themeColor">@color/black</item>
         <item name="colorPrimary">@color/white</item>
@@ -90,6 +97,7 @@
     </style>
 
     //for Player Activity
+
     <style name="playerActivityTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/cool_pink</item>

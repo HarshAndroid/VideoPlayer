@@ -35,7 +35,7 @@
     <string name="pip_mode">PIP Mode</string>
     <string name="search">Search</string>
 
-<!--strings for video more features-->
+    <!--strings for video more features-->
     <string name="rename">Rename </string>
     <string name="delete">Delete</string>
     <string name="info">Info</string>
@@ -44,7 +44,7 @@
     <string name="O">0</string>
     <string name="apply_to_all">Apply To All Upcoming Videos</string>
 
-<!-- strings for online playing features-->
+    <!-- strings for online playing features-->
     <string name="add_link">Paste Link</string>
     <string name="play">Play Video</string>
     <string name="play_online">Play Online</string>

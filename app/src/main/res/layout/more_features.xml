@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,35 +28,35 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/subtitlesBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:icon="@drawable/subtitles_icon"
-            android:text="@string/subtitles"
-            app:iconGravity="top"
+            android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:text="@string/subtitles"
             android:textAllCaps="false"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/white"
-            app:iconTint="@color/white"/>
+            app:icon="@drawable/subtitles_icon"
+            app:iconGravity="top"
+            app:iconTint="@color/white" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/audioBooster"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:icon="@drawable/booster_icon"
-            android:text="@string/booster"
-            app:iconGravity="top"
+            android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:text="@string/booster"
             android:textAllCaps="false"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/white"
-            app:iconTint="@color/white"/>
+            app:icon="@drawable/booster_icon"
+            app:iconGravity="top"
+            app:iconTint="@color/white" />
 
     </LinearLayout>
 
@@ -67,51 +67,51 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/speedBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:icon="@drawable/speed_icon"
-            android:text="@string/speed"
-            app:iconGravity="top"
+            android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:text="@string/speed"
             android:textAllCaps="false"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/white"
-            app:iconTint="@color/white"/>
+            app:icon="@drawable/speed_icon"
+            app:iconGravity="top"
+            app:iconTint="@color/white" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/sleepTimer"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:icon="@drawable/timer_icon"
-            android:text="@string/sleep_timer"
-            app:iconGravity="top"
+            android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:text="@string/sleep_timer"
             android:textAllCaps="false"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/white"
-            app:iconTint="@color/white"/>
+            app:icon="@drawable/timer_icon"
+            app:iconGravity="top"
+            app:iconTint="@color/white" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/pipModeBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:icon="@drawable/pip_icon"
-            android:text="@string/pip_mode"
-            app:iconGravity="top"
+            android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:text="@string/pip_mode"
             android:textAllCaps="false"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/white"
-            app:iconTint="@color/white"/>
+            app:icon="@drawable/pip_icon"
+            app:iconGravity="top"
+            app:iconTint="@color/white" />
 
     </LinearLayout>
 

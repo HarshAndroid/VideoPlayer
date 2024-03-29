@@ -2,7 +2,10 @@ package com.harshRajpurohit.videoPlayer
 
 import android.view.View
 
-class DoubleClickListener(private val doubleClickTimeLimitMills: Long = 500, private val callback: Callback) : View.OnClickListener {
+class DoubleClickListener(
+    private val doubleClickTimeLimitMills: Long = 500,
+    private val callback: Callback
+) : View.OnClickListener {
     private var lastClicked: Long = -1L
 
     override fun onClick(v: View?) {
@@ -10,10 +13,12 @@ class DoubleClickListener(private val doubleClickTimeLimitMills: Long = 500, pri
             lastClicked == -1L -> {
                 System.currentTimeMillis()
             }
+
             isDoubleClicked() -> {
                 callback.doubleClicked()
                 -1L
             }
+
             else -> {
                 System.currentTimeMillis()
             }

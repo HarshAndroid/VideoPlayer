@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/navYoutube"
-        android:title="@string/youtube"
-        android:icon="@drawable/youtube_icon" />
-    <item android:id="@+id/navUrl"
-        android:title="@string/play_online"
-        android:icon="@drawable/link_icon"/>
-    <item android:id="@+id/themesNav"
-        android:title="@string/themes"
-        android:icon="@drawable/theme_icon"/>
-    <item android:id="@+id/sortOrderNav"
-        android:title="@string/sort_order"
-        android:icon="@drawable/sort_order_icon"/>
-    <item android:id="@+id/aboutNav"
-        android:title="@string/about"
-        android:icon="@drawable/about_icon"/>
-    <item android:id="@+id/exitNav"
-        android:title="@string/exit"
-        android:icon="@drawable/exit_icon"/>
+    <item
+        android:id="@+id/navYoutube"
+        android:icon="@drawable/youtube_icon"
+        android:title="@string/youtube" />
+    <item
+        android:id="@+id/navUrl"
+        android:icon="@drawable/link_icon"
+        android:title="@string/play_online" />
+    <item
+        android:id="@+id/themesNav"
+        android:icon="@drawable/theme_icon"
+        android:title="@string/themes" />
+    <item
+        android:id="@+id/sortOrderNav"
+        android:icon="@drawable/sort_order_icon"
+        android:title="@string/sort_order" />
+    <item
+        android:id="@+id/aboutNav"
+        android:icon="@drawable/about_icon"
+        android:title="@string/about" />
+    <item
+        android:id="@+id/exitNav"
+        android:icon="@drawable/exit_icon"
+        android:title="@string/exit" />
 </menu>
