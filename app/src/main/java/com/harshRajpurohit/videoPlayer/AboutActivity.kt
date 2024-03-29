@@ -12,7 +12,9 @@ class AboutActivity : AppCompatActivity() {
         setTheme(MainActivity.themesList[MainActivity.themeIndex])
         val binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "About"
+        binding.toolbar.setNavigationOnClickListener { finish() }
         binding.aboutText.text =
             "Developed By: Harsh H. Rajpurohit \n\nIf you want to provide feedback, I will love to hear that."
     }

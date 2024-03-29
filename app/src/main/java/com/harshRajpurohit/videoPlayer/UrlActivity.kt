@@ -26,7 +26,9 @@ class UrlActivity : AppCompatActivity() {
         setTheme(MainActivity.themesList[MainActivity.themeIndex])
         binding = ActivityUrlBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "Play Url"
+        binding.toolbar.setNavigationOnClickListener { finish() }
 
         binding.playBtn.setOnClickListener {
             if (checkForInternet(this)) {

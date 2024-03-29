@@ -26,8 +26,10 @@ class FoldersActivity : AppCompatActivity() {
         setTheme(MainActivity.themesList[MainActivity.themeIndex])
         setContentView(binding.root)
         val position = intent.getIntExtra("position", 0)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = MainActivity.folderList[position].folderName
+        binding.toolbar.setNavigationOnClickListener { finish() }
         currentFolderVideos = getAllVideos(MainActivity.folderList[position].id)
         binding.videoRVFA.setHasFixedSize(true)
         binding.videoRVFA.setItemViewCacheSize(10)
