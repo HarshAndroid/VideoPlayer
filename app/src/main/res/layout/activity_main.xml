@@ -17,7 +17,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
+            android:layout_height="?attr/actionBarSize" />
 
         <FrameLayout
             android:id="@+id/fragmentFL"
@@ -39,9 +39,9 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
+        style="@style/Widget.Design.NavigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        style="@style/Widget.Design.NavigationView"
         android:layout_gravity="start"
         android:background="@color/white"
         android:fitsSystemWindows="false"
