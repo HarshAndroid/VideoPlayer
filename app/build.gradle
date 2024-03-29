@@ -34,6 +34,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.harshRajpurohit.videoPlayer'
 }
 
 dependencies {
