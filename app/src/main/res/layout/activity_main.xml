@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayoutMA"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
@@ -38,7 +38,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         app:headerLayout="@layout/nav_header"
         app:itemIconTint="?attr/themeColor"
         app:itemTextColor="@color/black"

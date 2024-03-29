@@ -581,9 +581,9 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
     }
 
     override fun onPictureInPictureModeChanged(
-        isInPictureInPictureMode: Boolean,
-        newConfig: Configuration?
-    ) {
+        isInPictureInPictureMode: Boolean
+       ) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode)
         if (pipStatus != 0) {
             finish()
             val intent = Intent(this, PlayerActivity::class.java)
