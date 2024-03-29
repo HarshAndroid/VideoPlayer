@@ -49,19 +49,20 @@ dependencies {
 
     //for glide
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+
     //for exoplayer
     implementation 'com.google.android.exoplayer:exoplayer-core:2.16.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.16.1'
+
+    //for playing online content
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.16.1'
 
     //for vertical progress bar
     implementation 'com.github.lukelorusso:VerticalSeekBar:1.2.7'
 
     //for doubleTapFeature
     implementation 'com.github.vkay94:DoubleTapPlayerView:1.0.4'
-
-    //for playing online content
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.16.1'
-
+    
     //custom chrome tabs for integrating youtube
-    implementation "androidx.browser:browser:1.4.0"
+    implementation "androidx.browser:browser:1.8.0"
 }
