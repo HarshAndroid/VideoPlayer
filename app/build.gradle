@@ -62,7 +62,7 @@ dependencies {
 
     //for doubleTapFeature
     implementation 'com.github.vkay94:DoubleTapPlayerView:1.0.4'
-    
+
     //custom chrome tabs for integrating youtube
     implementation "androidx.browser:browser:1.8.0"
 }

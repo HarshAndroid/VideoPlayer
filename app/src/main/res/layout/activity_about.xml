@@ -10,12 +10,13 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/themeColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/baseline_arrow_back_24"
-        app:navigationIconTint="@color/black"
-        app:titleTextColor="@color/black" />
+        app:navigationIconTint="@color/white"
+        app:titleTextColor="@color/white" />
 
     <TextView
         android:id="@+id/aboutText"

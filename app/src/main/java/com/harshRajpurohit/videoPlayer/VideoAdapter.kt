@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -58,6 +59,7 @@ class VideoAdapter(
         Glide.with(context)
             .asBitmap()
             .load(videoList[position].artUri)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .apply(RequestOptions().placeholder(R.mipmap.ic_video_player).centerCrop())
             .into(holder.image)
         holder.root.setOnClickListener {

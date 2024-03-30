@@ -74,6 +74,8 @@ class MainActivity : AppCompatActivity() {
         binding.root.addDrawerListener(toggle)
         toggle.syncState()
 
+        toggle.drawerArrowDrawable.color = resources.getColor(R.color.white)
+
 
         if (requestRuntimePermission()) {
             folderList = ArrayList()

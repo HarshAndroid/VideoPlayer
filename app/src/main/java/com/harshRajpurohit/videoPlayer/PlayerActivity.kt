@@ -19,7 +19,12 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.view.*
+import android.view.GestureDetector
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
@@ -46,7 +51,9 @@ import com.harshRajpurohit.videoPlayer.databinding.MoreFeaturesBinding
 import com.harshRajpurohit.videoPlayer.databinding.SpeedDialogBinding
 import java.io.File
 import java.text.DecimalFormat
-import java.util.*
+import java.util.Locale
+import java.util.Timer
+import java.util.TimerTask
 import kotlin.math.abs
 import kotlin.system.exitProcess
 
@@ -582,7 +589,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
 
     override fun onPictureInPictureModeChanged(
         isInPictureInPictureMode: Boolean
-       ) {
+    ) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode)
         if (pipStatus != 0) {
             finish()

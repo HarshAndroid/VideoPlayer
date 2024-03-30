@@ -1,64 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
     android:orientation="horizontal">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/renameBtn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:text="@string/rename"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:icon="@drawable/rename_icon"
         app:iconGravity="top"
+        app:iconPadding="10dp"
+        app:iconSize="22dp"
         app:iconTint="?attr/themeColor" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/deleteBtn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:text="@string/delete"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:icon="@drawable/delete_icon"
         app:iconGravity="top"
+        app:iconPadding="10dp"
+        app:iconSize="22dp"
         app:iconTint="?attr/themeColor" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/shareBtn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.9"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:text="@string/share"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:icon="@drawable/share_icon"
         app:iconGravity="top"
+        app:iconPadding="10dp"
+        app:iconSize="22dp"
         app:iconTint="?attr/themeColor" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/infoBtn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.8"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:text="@string/info"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:icon="@drawable/about_icon"
         app:iconGravity="top"
+        app:iconPadding="10dp"
+        app:iconSize="22dp"
         app:iconTint="?attr/themeColor" />
 
 
