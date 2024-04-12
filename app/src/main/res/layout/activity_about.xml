@@ -6,12 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".AboutActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/themeColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:navigationIconTint="@color/white"
+        app:titleTextColor="@color/white" />
+
     <TextView
         android:id="@+id/aboutText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="18sp"
+        android:layout_height="0dp"
         android:layout_margin="16dp"
-        android:text="@string/app_name"/>
+        android:text="@string/app_name"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

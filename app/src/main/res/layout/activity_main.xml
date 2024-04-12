@@ -2,45 +2,70 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayoutMA"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start"
+    android:fitsSystemWindows="false"
     tools:context=".MainActivity"
-    android:id="@+id/drawerLayoutMA">
+    tools:openDrawer="start">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/themeColor"
+                app:navigationIconTint="@color/white"
+                app:titleTextColor="@color/white" />
+            <!--            app:layout_scrollFlags="enterAlways|scroll"-->
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
         <FrameLayout
             android:id="@+id/fragmentFL"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            app:layout_anchor="@id/appbar"
+            app:layout_anchorGravity="bottom"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            app:menu="@menu/bottom_nav"
-            app:itemIconTint="?attr/themeColor"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             app:backgroundTint="@color/white"
-            app:itemTextColor="@color/black"
+            app:itemIconTint="?attr/themeColor"
             app:itemTextAppearanceActive="@color/black"
-            app:itemTextAppearanceInactive="@android:color/darker_gray"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            app:itemTextAppearanceInactive="@android:color/darker_gray"
+            app:itemTextColor="@color/black"
+            app:layout_anchor="@id/fragmentFL"
+            app:layout_anchorGravity="bottom"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            app:menu="@menu/bottom_nav" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
+        style="@style/Widget.Design.NavigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:menu="@menu/nav_menu"
-        app:headerLayout="@layout/nav_header"
         android:background="@color/white"
+        android:fitsSystemWindows="false"
+        app:drawerLayoutCornerSize="0dp"
+        app:headerLayout="@layout/nav_header"
+        app:itemIconTint="?attr/themeColor"
         app:itemTextColor="@color/black"
-        app:itemIconTint="?attr/themeColor"/>
+        app:menu="@menu/nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

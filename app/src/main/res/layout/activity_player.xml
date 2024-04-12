@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlayerActivity"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:context=".PlayerActivity">
 
-<!--    <com.google.android.exoplayer2.ui.PlayerView-->
-<!--        android:id="@+id/playerView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:controller_layout_id="@layout/custom_control_view"-->
-<!--        android:keepScreenOn="true"-->
-<!--        app:show_buffering="always"/>-->
+    <!--    <com.google.android.exoplayer2.ui.PlayerView-->
+    <!--        android:id="@+id/playerView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:controller_layout_id="@layout/custom_control_view"-->
+    <!--        android:keepScreenOn="true"-->
+    <!--        app:show_buffering="always"/>-->
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -56,35 +56,35 @@
         android:id="@+id/brightnessIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#42000000"
+        android:drawableLeft="@drawable/brightness_icon"
+        android:text="@string/O"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:drawableLeft="@drawable/brightness_icon"
-        android:text="@string/O"
-        tools:ignore="RtlHardcoded"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:background="#42000000"
-        android:visibility="gone"/>
+        tools:ignore="RtlHardcoded" />
 
     <Button
         android:id="@+id/volumeIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#42000000"
+        android:drawableLeft="@drawable/volume_icon"
+        android:text="@string/O"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:drawableLeft="@drawable/volume_icon"
-        android:text="@string/O"
-        tools:ignore="RtlHardcoded"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:background="#42000000"
-        android:visibility="gone"/>
+        tools:ignore="RtlHardcoded" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

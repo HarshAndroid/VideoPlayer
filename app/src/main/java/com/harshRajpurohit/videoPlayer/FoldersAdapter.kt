@@ -8,7 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.harshRajpurohit.videoPlayer.databinding.FoldersViewBinding
 
-class FoldersAdapter(private val context: Context, private var foldersList: ArrayList<Folder>) : RecyclerView.Adapter<FoldersAdapter.MyHolder>() {
+class FoldersAdapter(private val context: Context, private var foldersList: ArrayList<Folder>) :
+    RecyclerView.Adapter<FoldersAdapter.MyHolder>() {
     class MyHolder(binding: FoldersViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val folderName = binding.folderNameFV
         val root = binding.root

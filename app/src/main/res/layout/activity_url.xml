@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UrlActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".UrlActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/themeColor"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:navigationIconTint="@color/white"
+        app:titleTextColor="@color/white" />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:startIconDrawable="@drawable/add_link_icon"
-        app:startIconTint="@color/cool_pink"
         android:hint="@string/add_link"
         android:textColorHint="@android:color/darker_gray"
-        app:hintTextColor="@color/black"
         app:boxStrokeColor="@color/cool_pink"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:hintTextColor="@color/black"
+        app:startIconDrawable="@drawable/add_link_icon"
+        app:startIconTint="@color/cool_pink">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addedLink"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:singleLine="true"
-            android:inputType="text" />
+            android:inputType="text"
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginHorizontal="16dp"
         android:gravity="end"
-        android:layout_marginHorizontal="16dp">
-<!--        <Button-->
-<!--            android:id="@+id/pasteBtn"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:drawableLeft="@drawable/add_link_icon"-->
-<!--            android:backgroundTint="@android:color/transparent"-->
-<!--            android:text="@string/add_link"-->
-<!--            tools:ignore="RtlHardcoded"-->
-<!--            android:textAllCaps="false"-->
-<!--            style="@style/Widget.AppCompat.Button.Borderless"-->
-<!--            android:textSize="16sp"/>-->
+        android:orientation="horizontal">
+        <!--        <Button-->
+        <!--            android:id="@+id/pasteBtn"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:drawableLeft="@drawable/add_link_icon"-->
+        <!--            android:backgroundTint="@android:color/transparent"-->
+        <!--            android:text="@string/add_link"-->
+        <!--            tools:ignore="RtlHardcoded"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            style="@style/Widget.AppCompat.Button.Borderless"-->
+        <!--            android:textSize="16sp"/>-->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/playBtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:icon="@drawable/play_icon"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/play"
             android:textAllCaps="false"
-            app:iconTint="?attr/themeColor"
-            android:background="?attr/selectableItemBackground"
+            android:textSize="18sp"
+            app:icon="@drawable/play_icon"
             app:iconGravity="start"
-            android:textSize="18sp"/>
+            app:iconTint="?attr/themeColor" />
     </LinearLayout>
 
 
