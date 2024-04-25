@@ -198,7 +198,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 seekBarFeature()
             }
         }
-        if (repeat) findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_all)
+        if (repeat) findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.ic_repeat_all)
         else findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_off)
     }
 

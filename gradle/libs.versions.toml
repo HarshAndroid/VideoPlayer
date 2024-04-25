@@ -1,0 +1,43 @@
+[versions]
+agp = "8.4.0-rc02"
+kotlin = "1.9.10"
+coreKtx = "1.13.0"
+appcompat = "1.6.1"
+material = "1.11.0"
+activity = "1.9.0"
+constraintlayout = "2.1.4"
+legacy = "1.0.0"
+
+glide = "4.16.0"
+browser = "1.8.0"
+
+exoplayerCoreVer = "2.16.1"
+exoplayerUiVer = "2.16.1"
+exoplayerDashVer = "2.16.1"
+
+verticalSeekbarBar = "1.2.7"
+doubleTapPlayerView = "1.0.4"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-legacy = {group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacy"}
+
+glide = {group = "com.github.bumptech.glide", name = "glide", version.ref = "glide"}
+verticalSeekbar = {group = "com.github.lukelorusso", name = "VerticalSeekBar", version.ref = "verticalSeekbarBar"}
+doubleTapPlayerView = {group = "com.github.vkay94", name = "DoubleTapPlayerView", version.ref = "doubleTapPlayerView"}
+androidx-browser = {group = "androidx.browser", name = "browser", version.ref = "browser"}
+
+exoplayerCore = {group = "com.google.android.exoplayer", name = "exoplayer", version.ref = "exoplayerCoreVer"}
+exoplayerUi = {group = "com.google.android.exoplayer", name = "exoplayer-ui", version.ref = "exoplayerUiVer"}
+exoplayerDash = {group = "com.google.android.exoplayer", name = "exoplayer-dash", version.ref = "exoplayerDashVer"}
+
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
