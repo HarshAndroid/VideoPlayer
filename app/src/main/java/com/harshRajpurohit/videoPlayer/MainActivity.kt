@@ -1,6 +1,7 @@
 package com.harshRajpurohit.videoPlayer
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.READ_MEDIA_VIDEO
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -188,9 +189,9 @@ class MainActivity : AppCompatActivity() {
     private fun requestRuntimePermission(): Boolean {
         // Android 13 permission request
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE)
+            if (ContextCompat.checkSelfPermission(this, READ_MEDIA_VIDEO)
                 != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE), 13)
+                ActivityCompat.requestPermissions(this, arrayOf(READ_MEDIA_VIDEO), 13)
                 return false
             }
         }
@@ -228,7 +229,10 @@ class MainActivity : AppCompatActivity() {
                     "Storage Permission Needed!!",
                     Snackbar.LENGTH_LONG
                 ).setAction("OK") {
-                    ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE), 13)
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        ActivityCompat.requestPermissions(this, arrayOf(READ_MEDIA_VIDEO), 13)
+                    }
                 }.show()
             }
         }
