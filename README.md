@@ -35,7 +35,7 @@ Some ScreenShots 😃:</br>
 <li>Decent UI with New Material Widgets
 <li>Play Online Video Using Url or Link
 <li>In-Built Youtube Integration Using Custom Chrome Tabs
-<li>Android 13 Permission Handled
+<li>Android 13 & 14 Permission Handled
 <li>And Much More....
 </ul>
   
