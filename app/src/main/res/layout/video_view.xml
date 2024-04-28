@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="10dp"
+    app:strokeColor="#11000000"
     app:cardElevation="0dp"
     app:contentPadding="5dp">
 
@@ -15,8 +16,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/videoImg"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
             android:contentDescription="@string/image"
             android:src="@mipmap/ic_video_player"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -14,22 +14,37 @@
         tools:ignore="ScopedStorage" />
 
     <!-- permission for android 13-->
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_VIDEO"
+        tools:ignore="SelectedPhotoAccess" />
 
     <application
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_video_player"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_video_player_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoPlayer"
-        tools:ignore="AllowBackup">
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <activity
             android:name=".AboutActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
         <activity
             android:name=".PlayerActivity"
             android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
@@ -38,7 +53,6 @@
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
             tools:targetApi="n">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -46,27 +60,18 @@
                     android:mimeType="video/*"
                     android:scheme="content" />
             </intent-filter>
-
         </activity>
+
         <activity
             android:name=".FoldersActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".UrlPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false" />
+
         <activity
             android:name=".UrlActivity"
             android:configChanges="keyboardHidden|keyboard"
@@ -74,6 +79,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
+
     </application>
 
 </manifest>
