@@ -5,17 +5,17 @@
 <b>Simple Yet A Feature Rich Video Player Application.</b><br>
 
 <b>Apk Link (Try it yourself & I would love to hear your feedback 🙂):<b>
-  <br>https://drive.google.com/file/d/13DA1aD8fBDmge1NqBnoR37ydRLHh5AiK/view?usp=sharing (v1.0.6)
+  <br>https://raw.githubusercontent.com/HarshAndroid/VideoPlayer/master/screenshots/video_player_v2.0.0_28_04_2024.apk (v2.0.0)
 
 Some ScreenShots 😃:</br>
-<img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/7.png" width=45% height=30%/>
-<img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/6.png" width=45% height=30%/>
-<img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/1.png" width=30% height=30%/>
-<img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/8.png" width=30% height=30%/>
-<img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/3.png" width=30% height=30%/>
-<img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/4.png" width=30% height=25%/>
-<img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/5.png" width=30% height=25%/>
-<!-- <img src="https://github.com/HarshAndroid/VideoPlayer/blob/master/Screen_shots_of_app/8.png" width=30% height=30%/> -->
+<img src="https://raw.githubusercontent.com/HarshAndroid/VideoPlayer/master/screenshots/7.png" width=45% height=30%/>
+<img src="https://raw.githubusercontent.com/HarshAndroid/VideoPlayer/master/screenshots/6.png" width=45% height=30%/>
+<img src="https://raw.githubusercontent.com/HarshAndroid/VideoPlayer/master/screenshots/1.png" width=30% height=30%/>
+<img src="https://raw.githubusercontent.com/HarshAndroid/VideoPlayer/master/screenshots/8.png" width=30% height=30%/>
+<img src="https://raw.githubusercontent.com/HarshAndroid/VideoPlayer/master/screenshots/3.png" width=30% height=30%/>
+<img src="https://raw.githubusercontent.com/HarshAndroid/VideoPlayer/master/screenshots/4.png" width=30% height=25%/>
+<img src="https://raw.githubusercontent.com/HarshAndroid/VideoPlayer/master/screenshots/5.png" width=30% height=25%/>
+
 </br>
   
  <b>Features👇 : </b>
