@@ -22,15 +22,19 @@ class FoldersActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityFoldersBinding.inflate(layoutInflater)
         setTheme(MainActivity.themesList[MainActivity.themeIndex])
+
+        val binding = ActivityFoldersBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val position = intent.getIntExtra("position", 0)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = MainActivity.folderList[position].folderName
+
+
         binding.toolbar.setNavigationOnClickListener { finish() }
         currentFolderVideos = getAllVideos(MainActivity.folderList[position].id)
+
         binding.videoRVFA.setHasFixedSize(true)
         binding.videoRVFA.setItemViewCacheSize(10)
         binding.videoRVFA.layoutManager = LinearLayoutManager(this@FoldersActivity)

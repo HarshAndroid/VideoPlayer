@@ -198,8 +198,8 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
                 seekBarFeature()
             }
         }
-        if (repeat) findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.ic_repeat_all)
-        else findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_off)
+        if (repeat) findViewById<ImageButton>(R.id.repeatBtn).setImageResource(com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_all)
+        else findViewById<ImageButton>(R.id.repeatBtn).setImageResource(com.google.android.exoplayer2.R.drawable.exo_controls_repeat_off)
     }
 
     @SuppressLint("SetTextI18n", "SourceLockedOrientationActivity", "PrivateResource")
@@ -226,11 +226,11 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
             if (repeat) {
                 repeat = false
                 player.repeatMode = Player.REPEAT_MODE_OFF
-                findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_off)
+                findViewById<ImageButton>(R.id.repeatBtn).setImageResource(com.google.android.exoplayer2.R.drawable.exo_controls_repeat_off)
             } else {
                 repeat = true
                 player.repeatMode = Player.REPEAT_MODE_ONE
-                findViewById<ImageButton>(R.id.repeatBtn).setImageResource(R.drawable.exo_controls_repeat_all)
+                findViewById<ImageButton>(R.id.repeatBtn).setImageResource(com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_all)
             }
         }
         fullScreenBtn.setOnClickListener {
@@ -662,7 +662,7 @@ class PlayerActivity : AppCompatActivity(), AudioManager.OnAudioFocusChangeListe
     }
 
     private fun seekBarFeature() {
-        findViewById<DefaultTimeBar>(R.id.exo_progress).addListener(object :
+        findViewById<DefaultTimeBar>(com.google.android.exoplayer2.ui.R.id.exo_progress).addListener(object :
             TimeBar.OnScrubListener {
             override fun onScrubStart(timeBar: TimeBar, position: Long) {
                 pauseVideo()
