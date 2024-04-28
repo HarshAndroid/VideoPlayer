@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.harshRajpurohit.videoPlayer2"
+        applicationId = "com.harshRajpurohit.videoPlayer"
         minSdk = 21
         targetSdk = 34
         versionCode = 10
