@@ -187,9 +187,16 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun requestRuntimePermission(): Boolean {
-        // Android 13 permission request
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, READ_MEDIA_VIDEO)
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU){
+            if(ActivityCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE), 13)
+                return false
+            }
+        }else{
+            //android 13 or Higher permission request
+            if(ActivityCompat.checkSelfPermission(this, READ_MEDIA_VIDEO)
                 != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(READ_MEDIA_VIDEO), 13)
                 return false
@@ -198,130 +205,34 @@ class MainActivity : AppCompatActivity() {
 
         // Requesting storage permission for devices less than API 28
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-            if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE), 13)
-                return false
-            }
-        } else {
-            // Read external storage permission for devices higher than Android 10 (API 29)
-            if (ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE)
+            if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE), 14)
+                ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE), 13)
                 return false
             }
         }
         return true
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 13) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+        if(requestCode == 13){
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this, "Permission Granted",Toast.LENGTH_SHORT).show()
                 // Your code after permission granted
                 folderList = ArrayList()
                 videoList = getAllVideos(this)
                 setFragment(VideosFragment())
-            } else {
-                Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Storage Permission Needed!!",
-                    Snackbar.LENGTH_LONG
-                ).setAction("OK") {
-
+            }else{
+                Snackbar.make(findViewById(android.R.id.content), "Storage Permission Needed!!", Snackbar.LENGTH_LONG).setAction("OK") {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         ActivityCompat.requestPermissions(this, arrayOf(READ_MEDIA_VIDEO), 13)
                     }
                 }.show()
             }
-        }
 
-        if (requestCode == 14) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-                // Your code after permission granted
-                folderList = ArrayList()
-                videoList = getAllVideos(this)
-                setFragment(VideosFragment())
-            } else {
-                Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Storage Permission Needed!!",
-                    Snackbar.LENGTH_LONG
-                ).setAction("OK") {
-                    ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE), 14
-                    )
-                }.show()
-            }
         }
     }
-
-
-//    //for requesting permission
-//    private fun requestRuntimePermission(): Boolean {
-//        //android 13 permission request
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_VIDEO)
-//                != PackageManager.PERMISSION_GRANTED) {
-//                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_MEDIA_VIDEO), 13)
-//                return false
-//            }
-//            return true
-//        }
-//
-//        //requesting storage permission for only devices less than api 28
-//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-//            if (ActivityCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE), 13)
-//                return false
-//            }
-//        } else {
-//            //read external storage permission for devices higher than android 10 i.e. api 29
-//            if (ActivityCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE), 14)
-//                return false
-//            }
-//        }
-//        return true
-//    }
-//
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == 13) {
-//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-//                folderList = ArrayList()
-//                videoList = getAllVideos(this)
-//                setFragment(VideosFragment())
-//            } else Snackbar.make(binding.root, "Storage Permission Needed!!", 5000)
-//                .setAction("OK") {
-//                    ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE), 13)
-//                }
-//                .show()
-////                ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE),13)
-//        }
-//
-//        //for read external storage permission
-//        if (requestCode == 14) {
-//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-//                folderList = ArrayList()
-//                videoList = getAllVideos(this)
-//                setFragment(VideosFragment())
-//            } else Snackbar.make(binding.root, "Storage Permission Needed!!", 5000)
-//                .setAction("OK") {
-//                    ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE), 14)
-//                }
-//                .show()
-////            else
-////                ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE),14)
-//        }
-//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
