@@ -2,7 +2,7 @@
 
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)  ![Kotlin](https://img.shields.io/badge/Kotlin-100%25-brightgreen)
 
-**A Simple Yet Feature-Rich Video Player Application.**
+**A Simple Yet Feature-Rich Video Player Application Based on ExoPlayer.**
 
 ---
 
